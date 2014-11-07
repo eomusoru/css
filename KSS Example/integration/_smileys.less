@@ -1,0 +1,89 @@
+/* SMILEYS VERSIONS */
+@import "_smileys_30.less";
+
+/**
+ * SMILEYS
+ */
+ul.smileys{
+	height:0;
+	max-height: 0;
+    overflow: hidden;
+	float: left;
+	display: block;
+	position: absolute;
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+	padding: 0;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 5px;
+    -webkit-transform-origin: bottom left;
+    -moz-transform-origin: bottom left;
+    -ms-transform-origin: bottom left;
+    transform-origin: bottom left;
+
+	> *{
+		opacity:0;
+	}
+    
+	&.is-visible{
+		height:auto;
+		opacity:1;
+		max-height: auto;
+        overflow: visible;
+
+		&.smileys--box-1{
+			height: 200px;
+			max-height: 200px;
+		}
+
+		> *{
+			opacity: 1;
+		}
+
+	}
+
+	/* SIZES FOR THE CONTAINER BOX OF THE SMILEYS */
+	&.smileys--box-1{
+		left: -130px;
+		bottom: 50px;
+
+		> li{
+			width: 30px;
+			padding: 2px 0 2px 3px;
+			height: 34px;
+			opacity:0;
+		}
+
+		&.is-visible{
+			margin: -250px 0 0 0;
+			left: 0px;
+
+			> li{
+				opacity:1;
+			} 
+		}
+	}
+
+	> li{
+		float: left;
+		display: block;
+	}
+
+	.smiley{
+		cursor:pointer;
+	}
+
+	:after{
+        content: '';
+        display: block;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid rgba(255, 255, 255, 1);
+        height: 0;
+        width: 0;
+        position: absolute;
+        margin-left: 13px;
+        bottom: -8px;
+        left:9px; 
+    }
+}

@@ -1,0 +1,458 @@
+/**
+ * FORMS STYLES
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+// Forms
+//
+// Simple form inputs, select, no border, box-shadowed on :focus. They are over a light background by default.
+//
+// .input--light    - To make an input stand over a dark background
+// .input--bevelled - Nice bevelled input
+// .input--pink     - A nice pink input
+// .input--gold     - A nice gold input
+// .input--rounded  - Rounded corners for input. It works preety nice with input--pink
+// .input--large    - A largest type of input. Used for header login
+// select           - List item style
+//
+// Markup:
+// <form>
+//     <input type="text" placeholder="Sample input" class="{$modifiers}" />
+// </form>
+//
+// Styleguide 5.0
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+    border: 1px solid @grey;
+    background-color: @grey;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+    font-size: .8em;
+    color: @richBlack;
+
+    .funcBoxSizing();
+    .funcTransition(e('background .8s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    &:focus {
+        outline: 0;
+        .funcBoxShadow(false, 0, 0, 5px, 0, @lightGold);
+    }
+
+    &.input--light {
+        border: 1px solid @white;
+        background-color: @white;
+    }
+
+    &.input--bevelled {
+        border: 1px solid darken(@grey, 10%);
+        .funcBoxShadow(true, 0, 1px, 1px, 0, darken(@grey, 15%));
+    }
+
+    &.is-invalid {
+        color: @errorTxt;
+        border-color: @errorBorder;
+    }
+
+    &.input--minimal {
+        height: auto;
+        padding: 12px 12px 6px;
+        border: 0;
+        border-bottom: 1px solid @grey;
+        background: transparent;
+        font-size: 1em;
+        line-height: inherit;
+        .funcBorderRadius(0);
+
+        &:focus {
+            background: @white;
+            .funcBoxShadow(false, 0, 0, 0, 0, transparent);
+        }
+    }
+
+    &.input--pink{
+        background-color: darken(@pink, 10%);
+        color:@white;
+        border:none;
+        width:200px;
+
+        &::-webkit-input-placeholder {color: @pink;}
+        &:-moz-placeholder           {color: @pink;}
+        &::-moz-placeholder          {color: @pink;}
+        &:-ms-input-placeholder      {color: @pink;}
+    }
+
+    &.input--gold{
+        background-color: @lightestGold;
+        color: @darkGold;
+        border:none;
+        width:200px;
+
+        &::-webkit-input-placeholder {color: @darkGold;}
+        &:-moz-placeholder           {color: @darkGold;}
+        &::-moz-placeholder          {color: @darkGold;}
+        &:-ms-input-placeholder      {color: @darkGold;}
+    }
+
+    &.input--rounded{
+        border-radius: 20px;
+    }
+
+    &.input--large{
+        height: 40px;
+        color: @darkGrey;
+        font-size: 17px;
+        font-weight: 100;
+    }
+
+}
+
+input, textarea {
+    &::-webkit-input-placeholder {
+        opacity: 1;
+        color: @darkGrey;
+    }
+    &:-moz-placeholder {
+        opacity: 1;
+        color: @darkGrey;
+    }
+    &::-moz-placeholder {
+        opacity: 1;
+        color: @darkGrey;
+    }
+    &:-ms-input-placeholder {
+        opacity: 1;
+        color: @darkGrey;
+    }
+}
+
+.u-placeholder {
+    &:empty:after {
+        content: attr(data-placeholder);
+        color: @mediumGrey;
+    }
+    &:empty:focus:after {
+        color: @darkGrey;
+    }
+}
+
+input[type=search] { -webkit-appearance: none; }
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+select {
+    height: 30px;
+    line-height: 30px;
+    padding: 4px 4px 4px 12px;
+    font-size: .8em;
+    color: @darkGrey;
+    background: @grey;
+    border: 0;
+    border-radius: 4px;
+
+    option {
+        padding: 4px 4px 4px 12px;
+    }
+
+    &:focus {
+        outline: 0;
+        .funcBoxShadow(false, 0, 0, 3px, 0, @lightPink);
+    }
+}
+
+
+// Float-labels
+//
+// An iOs like implementation of the label, when an user startq typing in an input,
+// a hidden label fades in above the field, and disappears when the user clears the input.
+// This is transparent with non-capable browsers that simply displays the hidden label.
+//
+// Markup:
+// <div class="float-label demo__bg__white">
+//     <div class="float-label__wrapper">
+//         <label for="userid" class="">Email / pseudo</label>
+//         <input type="text" name="username" id="idLabelForHeaderLogin" placeholder="Email / pseudo">
+//     </div>
+// </div>
+//
+// Styleguide 5.1
+
+.float-label {
+
+    .float-label__wrapper {
+        position:relative;
+        margin-top:25px;
+    }
+    label {
+        position:absolute;
+        top:-10px;
+        left:0;
+        font-size:12px;
+        color: darken(@grey, 15%);
+        opacity:0;
+        .funcTransition(e('all .15s linear'));
+
+        &.is-focused { color: @darkGrey; }
+
+        &.is-visible {
+            top: -20px;
+            opacity: 1;
+        }
+    }
+}
+
+
+// Carets
+//
+// Simple arrows, 8px wide, use them in dropdowns toggles etc...
+//
+// .caret--small - Smaller caret: 5px wide
+//
+// Markup:
+// <span class="caret caret--white {$modifiers}"></span>
+//
+// Styleguide 5.2
+
+.caret {
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    border-top: 8px solid #000000;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    content: "";
+    .funcDisplayInlineBlock();
+
+    &.caret--white {
+        border-top-color: #ffffff;
+    }
+
+    &.caret--small {
+        border-top-width: 5px;
+        border-right-width: 5px;
+        border-left-width: 5px;
+    }
+
+    &.caret--inverse {
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid #000000;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+
+        &.caret--small {
+            border-width: 5px;
+        }
+    }
+}
+
+
+// Nice-form: Checkboxes & Radios
+//
+// A custom style for checkboxes & radios using CSS, and modernizr's compatibility classes
+// to only serve these styles to capable browsers
+//
+// Markup:
+// <fieldset class="demo__bg__white">
+//     <input type="checkbox" id="stay-connected">
+//     <label for="stay-connected" class="nice-form__checkbox">Stay connected</label>
+// </fieldset>
+//
+// Styleguide 5.3
+
+input[type="radio"],
+input[type="checkbox"] {
+
+    // Using modernizr to serve nice-form at capable browsers only
+    .generatedcontent:not(.lt-ie9) & {
+        position: absolute;
+        left: -999em;
+
+        + .nice-form__checkbox {
+            position: relative;
+            padding-left: 20px;
+            color: @mediumGrey;
+
+            &:hover { cursor: pointer; }
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 0;
+                display: block;
+                width: 13px;
+                height: 13px;
+                background: @lightGrey;
+                border: 1px solid darken(@grey, 15%);
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 4px;
+                left: 2px;
+                display: block;
+                width: 11px;
+                height: 11px;
+                background: transparent;
+            }
+
+            &.nice-form__checkbox--section{
+                color:#221e2f;
+                padding-left:30px;
+            }
+        }
+
+        &:checked {
+
+            + .nice-form__checkbox {
+                color: @darkGrey;
+
+                &:before { border-color: darken(@grey, 20%); }
+                &:after { background-image: url('@{urlImg}common/forms/nf-checkbox.png'); }
+            }
+        }
+    }
+}
+
+
+// Select
+//
+// Simple select
+//
+// .select--grey  - List item style
+//
+// Markup:
+// <select class='{$modifiers}'>
+//      <option>List item1</option>
+//      <option>List item2</option>
+//      <option>List item3</option>
+// </select>
+//
+// Styleguide 5.4
+
+select {
+    border: 1px solid @grey;
+    background-color: @grey;
+    border-radius: 4px;
+    height: 35px;
+    line-height: 35px;
+    padding: 5px 5px;
+    font-size: 1em;
+    color: @richBlack;
+    .funcBoxShadowMulti(e('inset 0 0 1px #888'));
+
+    .funcBoxSizing();
+    .funcTransition(e('background .8s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    &:focus {
+        outline: 0;
+        .funcBoxShadowMulti(e('inset 0 0 1px #888'));
+    }
+
+    &.select--grey{
+        background-color: #e2e0e5;
+        color: #78787a;
+    }
+}
+
+// Errors
+//
+// Error notifications, default error have an arrow pointing to the bottom
+//
+// .field-error--bottom   - With an arrow pointing at the top
+//
+// Markup:
+// <fieldset class="demo__bg__white">
+//      <span class='field-error {$modifiers}'>This field is required</span>
+//      <input type="text" name="username" class="is-invalid" value="invalid text" />
+// </fieldset>
+//
+// Styleguide 5.5
+
+.field-error {
+    position: relative;
+    z-index: 1;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 0 12px;
+    line-height: 30px;
+    font-size: .8em;
+    color: @errorTxt;
+    background: @errorBg;
+
+    .funcBorderRadius(4px);
+    .funcBoxSizing();
+    .funcDisplayInlineBlock();
+    .funcTransition(e('background .8s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-left: -4px;
+        vertical-align: top;
+        border-top: 8px solid @errorBg;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        .funcDisplayInlineBlock();
+    }
+
+    &.field-error--bottom {
+        margin-bottom: auto;
+        margin-top: 10px;
+
+        &:after {
+            top: -8px;
+            border-top: 0 none transparent;
+            border-bottom: 8px solid @errorBg;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            .funcDisplayInlineBlock();
+        }
+    }
+}
+
+// Field hints
+//
+// Animated hints for inputs
+//
+// Markup:
+// <fieldset class="demo__bg__white demo--field-hint">
+//      <input type="text">
+//      <small class="field-hint">A valid email adress is required to enjoy the offer</small>
+// </fieldset>
+//
+// Styleguide 5.6
+
+.field-hint {
+	height: 0;
+	margin-top: 0 !important;
+	opacity: 0;
+
+    -webkit-transition: height 300ms cubic-bezier(0.19, 1, 0.22, 1), opacity 300ms cubic-bezier(0.19, 1, 0.22, 1);
+	transition: height 300ms cubic-bezier(0.19, 1, 0.22, 1), opacity 300ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+input:focus + .field-hint {
+	height: 1.4em;
+	margin-top: 5px !important;
+	opacity: 1;
+}

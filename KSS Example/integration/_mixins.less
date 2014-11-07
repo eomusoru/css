@@ -1,0 +1,1292 @@
+/* ==========================================================================
+   LESS MIXINS
+   -----------
+   1.  BACKGROUND COLORS
+   2.  BACKGROUND GRADIENTS
+   3.  SECTION BACKGROUNDS
+   4.  BOX-SHADOWS
+   5.  RADIUS
+   6.  LAYOUT HELPERS
+   7.  IMAGES
+   8.  SPECIALS
+   9.  TRANSFORMS, TRANSITIONS & ANIMATIONS
+   10. FORMS
+   11. TYPOGRAPHY
+   12. GRID SYSTEM (Whitelabel v2)
+
+   @TODOS: Document the grid System part...
+   ========================================================================== */
+
+/* ==========================================================================
+   1. BACKGROUND COLORS
+   ========================================================================== */
+
+/**
+ * Define an opacity
+ * @opacity float | Amount of opacity where 0 is transparent and 1 is solid
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcOpacity(@opacity, @ieSupport: 1) when (isnumber(@opacity)) and (@ieSupport = 1) {
+    @opacityPercent: (@opacity *100);
+
+    -ms-filter: "alpha(opacity=@{opacityPercent})";
+        filter: e("alpha(opacity=@{opacityPercent})");
+
+    -webkit-opacity: @opacity;
+       -moz-opacity: @opacity;
+        -ms-opacity: @opacity;
+         -o-opacity: @opacity;
+            opacity: @opacity;
+}
+.funcOpacity(@opacity, @ieSupport: 1) when (isnumber(@opacity)) and (@ieSupport = 0) {
+    @opacityPercent: (@opacity *100);
+
+    -webkit-opacity: @opacity;
+       -moz-opacity: @opacity;
+        -ms-opacity: @opacity;
+         -o-opacity: @opacity;
+            opacity: @opacity;
+}
+
+/**
+ * Sets a RGBA background color
+ * @color color | Hexadecimal color
+ * @opacity float | Background's opacity like [.3, 1, 0]
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundRgba(@color, @opacity, @ieSupport: 1) when (@ieSupport = 1) {
+    @colorRgba: fade(@color, @opacity * 100);
+    @colorRgbaForIE: argb(@colorRgba);
+    background-color: transparent;
+    background: hsla(hue(@color), saturation(@color), lightness(@color), @opacity);
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@colorRgbaForIE,@colorRgbaForIE));
+}
+.funcBackgroundRgba(@color, @opacity, @ieSupport: 1) when (@ieSupport = 0) {
+    @colorRgba: fade(@color, @opacity * 100);
+    background-color: transparent;
+    background: hsla(hue(@color), saturation(@color), lightness(@color), @opacity);
+}
+
+/**
+ * Sets a transparent background, deleting filters just to be sure...
+ */
+.funcBackgroundNone(){
+    background: transparent;
+    filter: none;
+}
+
+/**
+ * Resets filters
+ */
+.funcResetFilter(){
+    filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+}
+
+
+/* ==========================================================================
+   2. BACKGROUND GRADIENTS
+   ========================================================================== */
+
+/**
+ * Define a radial gradient
+ * @colorBegin color | Center color
+ * @colorEnd color | End color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientRadial(@colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    background: mix(@colorBegin, @colorEnd, 50); /* Old browsers */
+    background: -moz-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial,center center,0,center center,100%,color-stop(0%,@colorBegin),color-stop(100%,@colorEnd)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,@colorBegin 0%,@colorEnd 100%); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@colorBegin,@colorEnd)); // IE6-9
+}
+.funcBackgroundGradientRadial(@colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    background: mix(@colorBegin, @colorEnd, 50); /* Old browsers */
+    background: -moz-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial,center center,0,center center,100%,color-stop(0%,@colorBegin),color-stop(100%,@colorEnd)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center,ellipse cover,@colorBegin 0%,@colorEnd 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,@colorBegin 0%,@colorEnd 100%); /* W3C */
+}
+
+/**
+ * Define a top to bottom gradient with hexadecimal values
+ * @default color | Fallback color
+ * @colorBegin color | Top color
+ * @colorEnd color | Bottom color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientTopToBottomHex(@default, @colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    background-color: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@colorBegin,@colorEnd)); // IE6-9
+}
+.funcBackgroundGradientTopToBottomHex(@default, @colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    background-color: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+}
+// Without @default, we calculate it and call the mixin again
+.funcBackgroundGradientTopToBottomHex(@colorBegin, @colorEnd, @ieSupport: 1){
+    @colorMedium: mix(@colorBegin, @colorEnd, 50);
+    .funcBackgroundGradientTopToBottomHex(@colorMedium, @colorBegin, @colorEnd, @ieSupport);
+}
+
+/**
+ * Define a left to right gradient with hexadecimal values
+ * @default color | Fallback color
+ * @colorBegin color | Left color
+ * @colorEnd color | Right color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientLeftToRightHex(@default, @colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    background: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, right top, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@colorBegin,@colorEnd)); // IE6-9
+}
+.funcBackgroundGradientLeftToRightHex(@default, @colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    background: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, right top, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(left, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+}
+// Without @default, we calculate it and call the mixin again
+.funcBackgroundGradientLeftToRightHex(@colorBegin, @colorEnd, @ieSupport: 1){
+    @colorMedium: mix(@colorBegin, @colorEnd, 50);
+    .funcBackgroundGradientLeftToRightHex(@colorMedium, @colorBegin, @colorEnd, @ieSupport);
+}
+
+/**
+ * Define a top-left to bottom-right gradient with hexadecimal values
+ * @default color | Fallback color
+ * @colorBegin color | Top-left color
+ * @colorEnd color | Bottom-right color
+ */
+.funcBackgroundGradientDiagonalTopToBottomHex(@default, @colorBegin, @colorEnd) {
+    background-color: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(-45deg, @{colorBegin} 0%, @{colorEnd} 100%)");
+    background: e("-webkit-gradient(linear, left top, right bottom, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))");
+    background: e("-webkit-linear-gradient(-45deg, @{colorBegin} 0%, @{colorEnd} 100%)");
+    background: e("-o-linear-gradient(-45deg, @{colorBegin} 0%, @{colorEnd} 100%)");
+    background: e("-ms-linear-gradient(-45deg, @{colorBegin} 0%, @{colorEnd} 100%)");
+    background: e("linear-gradient(-45deg, @{colorBegin} 0%, @{colorEnd} 100%)");
+}
+
+/**
+ * Define a triple color gradient from top to bottom
+ * @default color | Fallback color
+ * @startPoint percentage | Top position of the gradient's start point
+ * @startColor color | Start color
+ * @middlePoint percentage | Top position of the gradient's middle point
+ * @middleColor color | Middle color
+ * @endPoint percentage | Top position of the gradient's end point
+ * @endColor color | End color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientTopToBottomHexTriple(@default, @startPoint, @startColor, @middlePoint, @middleColor, @endPoint, @endColor, @ieSupport: 1) when(ispercentage(@startPoint)) and (ispercentage(@middlePoint)) and (ispercentage(@endPoint)) and (@ieSupport = 1){
+    background-color: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(@{startPoint}, @{startColor}), color-stop(@{middlePoint}, @{middleColor}), color-stop(@{endPoint}, @{endColor}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* IE10+ */
+    background: e("linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE6-9
+}
+.funcBackgroundGradientTopToBottomHexTriple(@default, @startPoint, @startColor, @middlePoint, @middleColor, @endPoint, @endColor, @ieSupport: 1) when(ispercentage(@startPoint)) and (ispercentage(@middlePoint)) and (ispercentage(@endPoint)) and (@ieSupport = 0){
+    background-color: @default; /* Old browsers */
+    background: e("-moz-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(@{startPoint}, @{startColor}), color-stop(@{middlePoint}, @{middleColor}), color-stop(@{endPoint}, @{endColor}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* IE10+ */
+    background: e("linear-gradient(top,  @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})"); /* W3C */
+}
+
+/**
+ * Define a triple color gradient from left to right
+ * @default color | Fallback color
+ * @startPoint percentage | Left position of the gradient's start point
+ * @startColor color | Start color
+ * @middlePoint percentage | Left position of the gradient's middle point
+ * @middleColor color | Middle color
+ * @endPoint percentage | Left position of the gradient's end point
+ * @endColor color | End color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientLeftToRightHexTriple(@default, @startPoint, @startColor, @middlePoint, @middleColor, @endPoint, @endColor, @ieSupport: 1) when(ispercentage(@startPoint)) and (ispercentage(@middlePoint)) and (ispercentage(@endPoint)) and (@ieSupport = 1){
+    background-color: @default;
+    background: e("-moz-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("-webkit-gradient(linear, left top, right top, color-stop(@{startPoint}, @{startColor}), color-stop(@{middlePoint}, @{middleColor}), color-stop(@{endPoint}, @{endColor}))");
+    background: e("-webkit-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint},@{endColor} @{endPoint})");
+    background: e("-o-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("-ms-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@startColor,@endColor)); // IE6-9
+}
+.funcBackgroundGradientLeftToRightHexTriple(@default, @startPoint, @startColor, @middlePoint, @middleColor, @endPoint, @endColor, @ieSupport: 1) when(ispercentage(@startPoint)) and (ispercentage(@middlePoint)) and (ispercentage(@endPoint)) and (@ieSupport = 0){
+    background-color: @default;
+    background: e("-moz-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("-webkit-gradient(linear, left top, right top, color-stop(@{startPoint}, @{startColor}), color-stop(@{middlePoint}, @{middleColor}), color-stop(@{endPoint}, @{endColor}))");
+    background: e("-webkit-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint},@{endColor} @{endPoint})");
+    background: e("-o-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("-ms-linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+    background: e("linear-gradient(left, @{startColor} @{startPoint}, @{middleColor} @{middlePoint}, @{endColor} @{endPoint})");
+}
+
+/**
+ * Define a left to right gradient with RGBA values
+ * @colorBegin color | Left color
+ * @opacityBegin float | Left color's opacity like [.3, 1, 0]
+ * @colorEnd color | Right color
+ * @opacityEnd float | Right color's opacity
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientLeftToRightRgba(@colorBegin, @opacityBegin, @colorEnd, @opacityEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    @colorRgbaBegin: fade(@colorBegin, @opacityBegin * 100);
+    @colorRgbaEnd: fade(@colorEnd, @opacityEnd * 100);
+    @colorRgbaForIEBegin: argb(@colorRgbaBegin);
+    @colorRgbaForIEEnd: argb(@colorRgbaEnd);
+    background: -moz-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,@colorRgbaBegin),color-stop(100%,@colorRgbaEnd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* IE10+ */
+    background: linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@colorRgbaForIEBegin,@colorRgbaForIEEnd)); // IE6-9
+}
+.funcBackgroundGradientLeftToRightRgba(@colorBegin, @opacityBegin, @colorEnd, @opacityEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    @colorRgbaBegin: fade(@colorBegin, @opacityBegin * 100);
+    @colorRgbaEnd: fade(@colorEnd, @opacityEnd * 100);
+    background: -moz-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,@colorRgbaBegin),color-stop(100%,@colorRgbaEnd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* IE10+ */
+    background: linear-gradient(left,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* W3C */
+}
+
+/**
+ * Define a top to bottom gradient with RGBA values
+ * @colorBegin color | Top color
+ * @opacityBegin float | Top color's opacity like [.3, 1, 0]
+ * @colorEnd color | Bottom color
+ * @opacityEnd float | Bottom color's opacity
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientTopToBottomRgba(@colorBegin, @opacityBegin, @colorEnd, @opacityEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    @colorRgbaBegin: fade(@colorBegin, @opacityBegin * 100);
+    @colorRgbaEnd: fade(@colorEnd, @opacityEnd * 100);
+    @colorRgbaForIEBegin: argb(@colorRgbaBegin);
+    @colorRgbaForIEEnd: argb(@colorRgbaEnd);
+    background: -moz-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,@colorRgbaBegin),color-stop(100%,@colorRgbaEnd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* IE10+ */
+    background: linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@colorRgbaForIEBegin,@colorRgbaForIEEnd)); // IE9 and down
+}
+.funcBackgroundGradientTopToBottomRgba(@colorBegin, @opacityBegin, @colorEnd, @opacityEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    @colorRgbaBegin: fade(@colorBegin, @opacityBegin * 100);
+    @colorRgbaEnd: fade(@colorEnd, @opacityEnd * 100);
+    background: -moz-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,@colorRgbaBegin),color-stop(100%,@colorRgbaEnd)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* IE10+ */
+    background: linear-gradient(top,@colorRgbaBegin 0%,@colorRgbaEnd 100%); /* W3C */
+}
+
+/**
+ * Simply define a top to bottom gradient (this one is nonchalant)
+ * @colorBegin color | Top color
+ * @colorEnd color | End color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientTopToBottom(@colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 1) {
+    background-color: @colorBegin; /* Old browsers */
+    background: e("-moz-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@colorBegin,@colorEnd)); // IE6-9
+}
+.funcBackgroundGradientTopToBottom(@colorBegin, @colorEnd, @ieSupport: 1) when (@ieSupport = 0) {
+    background-color: @colorBegin; /* Old browsers */
+    background: e("-moz-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* FF3.6+ */
+    background: e("-webkit-gradient(linear, left top, left bottom, color-stop(0%, @{colorBegin}), color-stop(100%, @{colorEnd}))"); /* Chrome,Safari4+ */
+    background: e("-webkit-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Chrome10+,Safari5.1+ */
+    background: e("-o-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* Opera 11.10+ */
+    background: e("-ms-linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* IE10+ */
+    background: e("linear-gradient(top, @{colorBegin} 0%, @{colorEnd} 100%)"); /* W3C */
+}
+
+/**
+ * Button coloration - Checks if the gradient is activated and if not, sets a flat background color
+ * @flatColor color | Default flat color
+ * @colorBegin color | Gradient's top color
+ * @colorEnd color | Gradient's end color
+ * @active bool | Wether to activate the gradient or not
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcBackgroundGradientButton(@flatColor, @colorBegin, @colorEnd, @active: 0, @ieSupport: 1) when ( iscolor(@colorBegin) ) and ( iscolor(@colorEnd) ) and( @active = 1 ){
+    .funcBackgroundGradientTopToBottomHex(@colorBegin, @colorEnd);
+}
+.funcBackgroundGradientButton(@flatColor, @colorBegin, @colorEnd, @active: 0, @ieSupport: 1) when ( iscolor(@colorBegin) ) and ( iscolor(@colorEnd) ) and( @active = 0 ){
+    background: @flatColor;
+}
+
+
+/* ==========================================================================
+   3. SECTION BACKGROUNDS
+   ========================================================================== */
+
+/**
+ * [NEW FULLSCREEN] Define a background gradient : checks if the provided params are colors, if not sets a black background
+ * @colorBegin color | Top color
+ * @colorEnd color | End color
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcHeaderBackground(@colorBegin, @colorEnd, @ieSupport: 1) when ( iscolor(@colorBegin) ) and ( iscolor(@colorEnd) ) {
+    .funcBackgroundGradientTopToBottom(@colorBegin, @colorEnd, @ieSupport);
+}
+.funcHeaderBackground(@colorBegin, @colorEnd, @ieSupport: 1) when not ( iscolor(@colorBegin) ) and not ( iscolor(@colorEnd) ) {
+    .funcBackgroundRgba(#000, .3, @ieSupport);
+}
+
+/**
+ * Sets a background gradient if @gradientActive = 1, if not sets a flat background
+ * @defaultColor color | Flat background color
+ * @startColor color | Gradient's start color
+ * @endColor color | Gradient's start color
+ * @direction bool | Gradient's start color
+ * @gradientActive bool | Wether the gradient is active or not
+ * @ieSupport bool | Wether old IEs are supported or not
+ */
+.funcSectionBackgroundColor(@defaultColor, @startColor, @endColor, @direction:0, @gradientActive, @ieSupport: 1) when (@gradientActive = 0 ){
+    background: none;
+    background-color: @defaultColor;
+}
+// VERTICAL GRADIENT
+.funcSectionBackgroundColor(@defaultColor, @startColor, @endColor, @direction:0, @gradientActive, @ieSupport: 1) when (@gradientActive = 1 ) and (@direction = 0 ) {
+    .funcBackgroundGradientTopToBottomHex(@defaultColor, @startColor, @endColor, @ieSupport: 1);
+}
+// HORIZONTAL GRADIENT
+.funcSectionBackgroundColor(@defaultColor, @startColor, @endColor, @direction:0, @gradientActive, @ieSupport: 1) when (@gradientActive = 1 ) and (@direction = 1 ) {
+    .funcBackgroundGradientLeftToRightHex(@defaultColor, @startColor, @endColor, @ieSupport: 1);
+}
+
+/**
+ * Sets a background pattern if @bgPattern is superior to 0
+ * @bgPattern integer | ID of the background pattern (see available patterns in the right folder)
+ */
+.funcSectionBackgroundPattern(@bgPattern) when (@bgPattern = 0) {
+    background: transparent;
+}
+.funcSectionBackgroundPattern(@bgPattern) when (@bgPattern > 0) {
+    background-color: transparent;
+    background-image:url('@{imgUrlListPattern}@{bgPattern}.png');
+    background-repeat: repeat;
+    background-position: left top;
+}
+
+/**
+ * Sets a background image if @bgGallery is superior to 0
+ * @type integer | Wether the image comes from the gallery (0), or is uploaded by user (1)
+ * @bgGallery integer | ID of the background image (see available images in the right folder)
+ * @bgUpload url | Path of the uploaded image
+ * @bgImageRepetition integer | Background-repeat
+ * @bgImagePosition string | Background-position
+ */
+.funcHeaderBackgroundImage(@type, @bgGallery, @bgUpload, @bgImageRepetition, @bgImagePosition) when (@type = 0) and (@bgGallery = 0) {
+    background:transparent url('/bundles/dnxfront/img/new/common/transparent.gif') no-repeat;
+}
+.funcHeaderBackgroundImage(@type, @bgGallery, @bgUpload, @bgImageRepetition, @bgImagePosition) when (@type = 0) and (@bgGallery > 0) and (@bgImageRepetition = 0 ) {
+    background:transparent url('@{imgUrlListBkd}@{bgGallery}.jpg') no-repeat @bgImagePosition;
+}
+// BACKGROUND: REPEAT
+.funcHeaderBackgroundImage(@type, @bgGallery, @bgUpload, @bgImageRepetition, @bgImagePosition) when (@type = 0) and (@bgGallery > 0) and (@bgImageRepetition = 1 ) {
+    background:transparent url('@{imgUrlListBkd}@{bgGallery}.jpg') repeat @bgImagePosition;
+}
+// USER UPLOADED IMAGE & BACKGROUND: NO-REPEAT
+.funcHeaderBackgroundImage(@type, @bgGallery, @bgUpload, @bgImageRepetition, @bgImagePosition) when (@type = 1) and (@bgImageRepetition = 0 ) {
+    background: url(@bgUpload) no-repeat center;
+}
+// USER UPLOADED IMAGE & BACKGROUND: REPEAT
+.funcHeaderBackgroundImage(@type, @bgGallery, @bgUpload, @bgImageRepetition, @bgImagePosition) when (@type = 1) and (@bgImageRepetition = 1 ) {
+    background: url(@bgUpload) repeat center;
+}
+
+/**
+ * Simply sets a background image
+ * @bgImageUrl url | Path of the image
+ * @bgImageRepetition integer | Background-repeat
+ * @bgImagePosition string | Background-position
+ */
+// BACKGROUND: NO-REPEAT
+.funcContentBackgroundImage(@bgImageUrl, @bgImageRepetition, @bgImagePosition) when (@bgImageRepetition = 0 ) {
+    background: url(@bgImageUrl) no-repeat center;
+}
+// BACKGROUND: REPEAT
+.funcContentBackgroundImage(@bgImageUrl, @bgImageRepetition, @bgImagePosition) when (@bgImageRepetition = 1 ) {
+    background: url(@bgImageUrl) repeat @bgImagePosition;
+}
+
+/**
+ * Define a background illustration (most of the time its a Model)
+ * @type integer | Wether the image comes from the gallery (0), or is uploaded by user (1)
+ * @bgGirlGallery integer | ID of the background image (see available images in the right folder)
+ * @bgGirlUpload url | Path of the image
+ *
+ * @TODO: Dynamise the background-position variables
+ */
+// A MODEL FROM THE GALLERY
+.funcHeaderBackgroundGirl(@type, @bgGirlGallery, @bgGirlUpload) when (@type = 0) and (@bgGirlGallery > 0) {
+    background-color:transparent;
+    background-image:url('@{imgUrlListGirl}@{bgGirlGallery}.png');
+    background-repeat:no-repeat;
+    background-position:@lessLayoutElementHeaderPresentationBackgroundGirlPositionHorizontal @lessLayoutElementHeaderPresentationBackgroundGirlPositionVertical;
+}
+// AN UPLOADED MODEL
+.funcHeaderBackgroundGirl(@type, @bgGirlGallery, @bgGirlUpload) when (@type = 1) {
+    background-color:transparent;
+    background-image: url(@bgGirlUpload);
+    background-repeat:no-repeat;
+    background-position:@lessLayoutElementHeaderPresentationBackgroundGirlPositionHorizontal @lessLayoutElementHeaderPresentationBackgroundGirlPositionVertical;
+}
+// NO MODEL
+.funcHeaderBackgroundGirl(@type, @bgGirlGallery, @bgGirlUpload) when (@type = 0) and (@bgGirlGallery = 0) {
+    background:transparent;
+}
+
+
+/* ==========================================================================
+   4. BOX-SHADOWS
+   ========================================================================== */
+
+/**
+ * Define a multiple box-shadow
+ * @value string | Escaped string with each of your box-shadows, with the following syntax :
+ * _syntax 1 : ~'boxShadow1, boxShadow2, ...'
+ * _syntax 2 : e('boxShadow1, boxShadow2, ...')
+ */
+.funcBoxShadowMulti(@value){
+    -webkit-box-shadow: @value;
+       -moz-box-shadow: @value;
+        -ms-box-shadow: @value;
+         -o-box-shadow: @value;
+            box-shadow: @value;
+}
+
+/**
+ * Define a simple box-shadow
+ * @boolInset bool | Sets an inner box-shadow
+ * @lengthHorizontal pixel | Horizontal offset of the shadow
+ * @lengthVertical pixel | Vertical offset of the shadow
+ * @radiusBlur pixel | How much blurred is the shadow
+ * @spread pixel | Sets the shadow's spread
+ * @spread color | Sets the shadow's color
+ */
+.funcBoxShadow(@boolInset, @lengthHorizontal, @lengthVertical, @radiusBlur, @spread, @color) when (@boolInset = true), (@boolInset = 1), (@boolInset = inset){
+    .funcBoxShadowMulti(inset @lengthHorizontal @lengthVertical @radiusBlur @spread @color);
+}
+.funcBoxShadow(@boolInset, @lengthHorizontal, @lengthVertical, @radiusBlur, @spread, @color) when (@boolInset = false), (@boolInset = 0){
+    .funcBoxShadowMulti(@lengthHorizontal @lengthVertical @radiusBlur @spread @color);
+}
+.funcBoxShadow(@lengthHorizontal, @lengthVertical, @radiusBlur, @spread, @color) when (@radiusBlur >= 0) and ( iscolor(@color) ){
+    .funcBoxShadow(false, @lengthHorizontal, @lengthVertical, @radiusBlur, @spread, @color);
+}
+.funcBoxShadow(@lengthHorizontal, @lengthVertical, @radiusBlur, @color) when (@radiusBlur >= 0) and (iscolor(@color)){
+    .funcBoxShadow(false, @lengthHorizontal, @lengthVertical, @radiusBlur, 0, @color);
+}
+.funcBoxShadow(@lengthHorizontal, @lengthVertical, @color) when (iscolor(@color)){
+    .funcBoxShadow(false, @lengthHorizontal, @lengthVertical, 0, 0, @color);
+}
+.funcBoxShadowNone(){
+    .funcBoxShadow(false, 0, 0, 0, 0, transparent);
+}
+
+/**
+ * [FOOTER BUTTON] Defines a white OR black box-shadow in AND out
+ * @hexColor color | Color upon wich we calculate the desired colors
+ */
+.funcHeaderFooterBt1ShadowBlackOrWhite(@hexColor) when(lightness(@hexColor) < 50%){
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.5), 1px 1px 2px rgba(255,255,255,.2);
+       -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.5), 1px 1px 2px rgba(255,255,255,.2);
+            box-shadow: inset 0 1px 0 rgba(0,0,0,.5), 1px 1px 2px rgba(255,255,255,.2);
+}
+.funcHeaderFooterBt1ShadowBlackOrWhite(@hexColor) when(lightness(@hexColor) >= 50%){
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 1px 1px 2px rgba(0,0,0,.2);
+       -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 1px 1px 2px rgba(0,0,0,.2);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 1px 1px 2px rgba(0,0,0,.2);
+}
+
+
+/* ==========================================================================
+   5. RADIUS
+   ========================================================================== */
+
+/**
+ * Define a border-radius
+ * @sizeTL pixel | Top-left radius
+ * @sizeTR pixel | Top-right radius
+ * @sizeBR pixel | Bottom-right radius
+ * @sizeBL pixel | Bottom-left radius
+ * @unit integer | Type of radius: 0=nope, 1=pixel
+ */
+.funcBorderRadius(@sizeTL, @sizeTR, @sizeBR, @sizeBL){
+    -moz-border-radius-topleft: @sizeTL;
+    -moz-border-radius-topright: @sizeTR;
+    -moz-border-radius-bottomright: @sizeBR;
+    -moz-border-radius-bottomleft: @sizeBL;
+
+    -webkit-border-radius: @arguments; // @arguments puts inline all arguments
+            border-radius: @arguments;
+}
+// Precising unit (0)
+.funcBorderRadius(@sizeTop, @sizeRight, @sizeBottom, @sizeLeft, @unit:0) when (@unit = 0 ){
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+
+    -webkit-border-radius: 0;
+            border-radius: 0;
+}
+// Precising unit (px)
+.funcBorderRadius(@sizeTop, @sizeRight, @sizeBottom, @sizeLeft, @unit:0) when (@unit = 1 ){
+    -moz-border-radius-topleft: ~"@{sizeTop}px";
+    -moz-border-radius-topright: ~"@{sizeRight}px";
+    -moz-border-radius-bottomright: ~"@{sizeBottom}px";
+    -moz-border-radius-bottomleft: ~"@{sizeLeft}px";
+
+    -webkit-border-radius: ~"@{sizeTop}px @{sizeRight}px @{sizeBottom}px @{sizeLeft}px";
+            border-radius: ~"@{sizeTop}px @{sizeRight}px @{sizeBottom}px @{sizeLeft}px";
+}
+
+// @size pixel | Overall radius
+.funcBorderRadius(@size){
+    -webkit-border-radius: @size;
+       -moz-border-radius: @size;
+            border-radius: @size;
+}
+
+/**
+ * Define a single corner border-radius
+ * @radius pixel | Size of the radius
+ */
+//  Top Left
+.funcBorderTopLeftRadius(@radius){
+    -webkit-border-top-left-radius:@radius;
+        -moz-border-radius-topleft:@radius;
+            border-top-left-radius:@radius;
+}
+//  Top Right
+.funcBorderTopRightRadius(@radius){
+    -webkit-border-top-right-radius:@radius;
+        -moz-border-radius-topright:@radius;
+            border-top-right-radius:@radius;
+}
+//  Bottom Right
+.funcBorderBottomRightRadius(@radius){
+    -webkit-border-bottom-right-radius:@radius;
+        -moz-border-radius-bottomright:@radius;
+            border-bottom-right-radius:@radius;
+}
+//  Bottom Left
+.funcBorderBottomLeftRadius(@radius){
+    -webkit-border-bottom-left-radius:@radius;
+        -moz-border-radius-bottomleft:@radius;
+            border-bottom-left-radius:@radius;
+}
+
+/**
+ * Define a border-radius with dynamic unit (px - %)
+ * @radius pixel | Size of the radius
+ * @unit integer | Type of radius: 0=nope, 1=pixel, 2=50% (rounded)
+ */
+.funcBorderRadius(@radius, @unit) when (@unit = 0 ){
+    -webkit-border-radius: 0;
+     -khtml-border-radius: 0;
+       -moz-border-radius: 0;
+        -ms-border-radius: 0;
+         -o-border-radius: 0;
+            border-radius: 0;
+}
+.funcBorderRadius(@radius, @unit) when (@unit = 1 ){
+    -webkit-border-radius: ~"@{radius}px";
+     -khtml-border-radius: ~"@{radius}px";
+       -moz-border-radius: ~"@{radius}px";
+        -ms-border-radius: ~"@{radius}px";
+         -o-border-radius: ~"@{radius}px";
+            border-radius: ~"@{radius}px";
+}
+.funcBorderRadius(@radius, @unit) when (@unit = 2 ){
+    -webkit-border-radius: 50%;
+     -khtml-border-radius: 50%;
+       -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+         -o-border-radius: 50%;
+            border-radius: 50%;
+}
+
+/**
+ * Define a single side border-radius
+ * @radius pixel | Size of the radius
+ */
+// TOP
+.funcBorderTopRadius(@radius){
+  .funcBorderTopRightRadius(@radius);
+  .funcBorderTopLeftRadius(@radius);
+}
+// RIGHT
+.funcBorderRightRadius(@radius){
+  .funcBorderTopRightRadius(@radius);
+  .funcBorderBottomRightRadius(@radius);
+}
+// BOTTOM
+.funcBorderBottomRadius(@radius){
+  .funcBorderBottomRightRadius(@radius);
+  .funcBorderBottomLeftRadius(@radius);
+}
+// LEFT
+.funcBorderLeftRadius(@radius){
+  .funcBorderTopLeftRadius(@radius);
+  .funcBorderBottomLeftRadius(@radius);
+}
+
+
+/* ==========================================================================
+   6. LAYOUT HELPERS
+   ========================================================================== */
+
+/**
+ * Common layout utility : Defines a centered 990px wide block
+ */
+.funcCommonContent(){
+    width: 990px;
+    margin: 0 auto;
+    .funcPosRelative();
+}
+
+/**
+ * Define an box-model sizing
+ * @sizing string | See box sizing [http://www.w3schools.com/cssref/css3_pr_box-sizing.asp]
+ */
+.funcBoxSizing(@sizing){
+    -webkit-box-sizing: @sizing; /* Safari/Chrome, other WebKit */
+       -moz-box-sizing: @sizing; /* Firefox, other Gecko */
+            box-sizing: @sizing; /* Opera/IE 8+ */
+}
+// NO PARAM | Sets box-sizing to border-box
+.funcBoxSizing(){
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+       -moz-box-sizing: border-box; /* Firefox, other Gecko */
+            box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+/**
+ * Reset the appearance to 'none' - Useful for buttons
+ */
+.funcAppearanceNone(){
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/**
+ * Define a css positionning
+ * @position string | Which position to use
+ */
+.funcPosTopLeft(@position){
+    position: @position;
+    left: 0;
+    top: 0;
+}
+
+/**
+ * Define a relative positionning
+ */
+.funcPosAbsolute(){
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/**
+ * Define a relative positionning
+ */
+.funcPosRelative(){
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+/**
+ * Clip to window's edges
+ * @position string | Position (absolute etc...)
+ * @zindex integer | Z-index position
+ */
+.funcClipFullscreen(@position, @zindex:1){
+    position: @position;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @zindex;
+}
+
+/**
+ * Define an inline-block behavior
+ */
+.funcDisplayInlineBlock(){
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;/* IE6/IE7 */
+}
+
+/**
+ * Clearfix
+ */
+.funcClearfix(){
+    *zoom: 1;
+    &:before,
+    &:after{
+        display: table;
+        content: "";
+        line-height: 0;
+    }
+    &:after{clear: both;}
+}
+
+/**
+ * Webkit-style focus
+ */
+.funcTabFocus(){
+    // Default
+    outline: thin dotted #333;
+    // Webkit
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+/**
+ * Center-align a block level element
+ */
+.funcCenterBlock(){
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+/* ==========================================================================
+   7. IMAGES
+   ========================================================================== */
+
+/**
+ * Define an background position (useful for sprites)
+ * @width pixel | Width of each image/icon in the sprite
+ * @height pixel | Height of each image/icon in the sprite
+ * @posx integer | Number of the area to display on the X axis
+ * @posy integer | Number of the area to display on the Y axis
+ */
+.funcSpritePos(@width, @height, @posx, @posy){
+    background-position: -( @posx * @width ) -( @posy * @height );
+}
+
+/**
+ * Define a white OR black background image
+ * @bgColor color | Color upon wich we calculate the desired image's color
+ * @icon string | Image name
+ * @url string | Image path
+ * @ext string | File extension
+ */
+.funcSpriteColor(@bgColor, @icon, @url, @ext) when (isDarkColor(@bgColor)) {
+    background-image: url('@{url}/@{icon}.@{ext}');
+}
+.funcSpriteColor(@bgColor, @icon, @url, @ext) when (isBrightColor(@bgColor)) {
+    background-image: url('@{url}/@{icon}_black.@{ext}');
+}
+
+/**
+ * Background clipping
+ * @clip string | See background-clip [http://www.w3schools.com/cssref/css3_pr_background-clip.asp]
+ */
+.funcBackgroundClip(@clip){
+  -webkit-background-clip:@clip;
+     -moz-background-clip:@clip;
+          background-clip:@clip;
+}
+
+/**
+ * Background clipping
+ * @size string | See background-size [http://www.w3schools.com/cssref/css3_pr_background-size.asp]
+ */
+.funcBackgroundSize(@size){
+  -webkit-background-size:@size;
+     -moz-background-size:@size;
+       -o-background-size:@size;
+          background-size:@size;
+}
+
+/**
+ * Responsive image
+ */
+.funcResponsiveImg(){
+    display: block;
+    vertical-align: middle;
+    max-width: 100%;
+    ms-interpolation: bicubic;
+    *zoom: 1;
+}
+
+
+/* ==========================================================================
+   8. SPECIALS
+   ========================================================================== */
+
+/**
+ * Text coloration upon dynamic backgrounds
+ * @color1 color | Used if the background is flat
+ * @color2 color | Used if the background has a gradient
+ * @gradientActive bool | Wether the background has a gradient or not
+ */
+.funcTextColoration(@color1, @color2, @gradientActive) when (@gradientActive = 0) {
+    color:@color1;
+}
+.funcTextColoration(@color1, @color2, @gradientActive) when (@gradientActive = 1) {
+    color:@color2;
+}
+
+/**
+ * Background coloration upon dynamic backgrounds
+ * @color1 color | Used if the background is flat
+ * @color2 color | Used if the background has a gradient
+ * @gradientActive bool | Wether the background has a gradient or not
+ */
+.funcBgColoration(@color1, @color2, @gradientActive) when (@gradientActive = 0) {
+    background-color:@color1;
+}
+.funcBgColoration(@color1, @color2, @gradientActive) when (@gradientActive = 1) {
+    background-color:@color2;
+}
+
+/**
+ * [PDP - Price bubbles] Avoid a yellow text-color on a yellow background
+ * @color color
+ */
+.reducColor (@color) when (hue(@color) >= 40%) and (70% >= hue(@color)) {
+   color: @wlElementColor;
+}
+.reducColor (@color) when (hue(@color) < 40%), (70% < hue(@color)) {
+   color: #ffe900;
+}
+
+/**
+ * [FULLSCREEN] Set a background color checking of we are on an old or new whitelabel
+ * @color color | Color used in case we visite a NEW WL
+ * @default color | Color used in case we visite an OLD WL
+ */
+.funcFsHeaderBackground(@color, @default) when ( iscolor(@color) ) {
+    background-color: @color;
+}
+.funcFsHeaderBackground(@color, @default) when not ( iscolor(@color) ) {
+    background-color: @default;
+}
+
+/**
+ * [FULLSCREEN] Set a text color checking of we are on an old or new whitelabel
+ * @color color | Color used in case we visite a NEW WL
+ * @default color | Color used in case we visite an OLD WL
+ */
+.funcFsTextColor(@color, @default) when ( iscolor(@color) ) {
+    color: textColorToWhiteOrBlack(@color);
+}
+.funcFsTextColor(@color, @default) when not ( iscolor(@color) ) {
+    color: textColorToWhiteOrBlack(@default);
+}
+
+
+/* ==========================================================================
+   9. TRANSFORMS, TRANSITIONS & ANIMATIONS
+   ========================================================================== */
+
+/**
+ * Define a css transform
+ * @value string | Escaped string with the transform, using the following syntax :
+ * _syntax 1 : ~'transform1, transform2, ...'
+ * _syntax 2 : e('transform1, transform2, ...')
+ */
+.funcTransform(@value){
+    -webkit-transform: @value;
+       -moz-transform: @value;
+        -ms-transform: @value;
+            transform: @value;
+}
+/**
+ * Rotation
+ * @degrees string | E.g.: 90deg
+ */
+.funcRotate(@degrees){
+    -webkit-transform: rotate(@degrees);
+       -moz-transform: rotate(@degrees);
+        -ms-transform: rotate(@degrees);
+         -o-transform: rotate(@degrees);
+            transform: rotate(@degrees);
+}
+/**
+ * Scale
+ * @ratio float | E.g.: 1.4
+ */
+.funcScale(@ratio){
+    -webkit-transform: scale(@ratio);
+       -moz-transform: scale(@ratio);
+        -ms-transform: scale(@ratio);
+         -o-transform: scale(@ratio);
+            transform: scale(@ratio);
+}
+/**
+ * Translate
+ * @x pixel | Width of the translation on the X axis
+ * @y pixel | Height of the translation on the Y axis
+ */
+.funcTranslate(@x, @y){
+    -webkit-transform: translate(@x, @y);
+       -moz-transform: translate(@x, @y);
+        -ms-transform: translate(@x, @y);
+         -o-transform: translate(@x, @y);
+            transform: translate(@x, @y);
+}
+/**
+ * Skew (distort)
+ * @x string | E.g.: 90deg, horizontal distortion
+ * @y string | E.g.: 90deg, vertical distortion
+ */
+.funcSkew(@x, @y){
+    -webkit-transform: skew(@x, @y);
+       -moz-transform: skew(@x, @y);
+        -ms-transform: skewX(@x) skewY(@y); // See https://github.com/twitter/bootstrap/issues/4885
+         -o-transform: skew(@x, @y);
+            transform: skew(@x, @y);
+    -webkit-backface-visibility: hidden; // See https://github.com/twitter/bootstrap/issues/5319
+}
+/**
+ * 3D Translate
+ * @x pixel | Amount of translation on the x axis
+ * @y pixel | Amount of translation on the y axis
+ * @z pixel | Amount of translation on the z axis
+ */
+.funcTranslate3d(@x, @y, @z){
+    -webkit-transform: translate3d(@x, @y, @z);
+       -moz-transform: translate3d(@x, @y, @z);
+         -o-transform: translate3d(@x, @y, @z);
+            transform: translate3d(@x, @y, @z);
+}
+/**
+ * Backface visibility - Prevent browsers from flickering when using CSS 3D transforms.
+ * Default value is `visible`, but can be changed to `hidden
+ */
+.funcBackfaceVisibility(@visibility){
+    -webkit-backface-visibility:@visibility;
+       -moz-backface-visibility:@visibility;
+            backface-visibility:@visibility;
+}
+
+/**
+ * Define a transition
+ * @transition string | Escaped string with the transition, using the following syntax :
+ * _syntax 1 : ~'transition1, transition2, ...'
+ * _syntax 2 : e('transition1, transition2, ...')
+ */
+.funcTransition(@transition){
+  -webkit-transition: @transition;
+     -moz-transition: @transition;
+       -o-transition: @transition;
+          transition: @transition;
+}
+
+/**
+ * Simply animate an element
+ */
+.funcAnimation(){
+    -webkit-animation: all .5s cubic-bezier(0.23, 1, 0.32, 1);
+       -moz-animation: all .5s cubic-bezier(0.23, 1, 0.32, 1);
+        -ms-animation: all .5s cubic-bezier(0.23, 1, 0.32, 1);
+         -o-animation: all .5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: all .5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/**
+ * Define an animation with parameters
+ * @param string | Escaped string with the animation, using the following syntax :
+ * _syntax 1 : ~'anim1, anim2, ...'
+ * _syntax 2 : e('anim1, anim2, ...')
+ */
+.funcAnimation(@params){
+    -webkit-animation: @param;
+       -moz-animation: @param;
+        -ms-animation: @param;
+         -o-animation: @param;
+            animation: @param;
+}
+
+/**
+ * Define an background-clip
+ * @param string | Type of clip
+ */
+.funcBgClip(@params){
+    -webkit-background-clip: @params;
+       -moz-background-clip: @params;
+        -ms-background-clip: @params;
+         -o-background-clip: @params;
+            background-clip: @params;
+}
+
+/**
+ * Blur an element
+ * @blur string | Amount of blur
+ */
+.funcEffectBlur(@blur){
+    -webkit-filter: blur(@blur);
+       -moz-filter: blur(@blur);
+        -ms-filter: blur(@blur);
+         -o-filter: blur(@blur);
+            filter: blur(@blur);
+}
+
+
+/* ==========================================================================
+   10. FORMS
+   ========================================================================== */
+
+/**
+ * Placeholder text coloration
+ */
+.funcPlaceholderColor(@color: #cccccc){
+    &:-moz-placeholder{color: @color;}
+    &:-ms-input-placeholder{color: @color;}
+    &::-webkit-input-placeholder{color: @color;}
+}
+
+/**
+ * Block level inputs
+ */
+.funcInputBlockLevel(){
+    display:block;
+    width:100%;
+    min-height: 30px; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+    .funcBoxSizing(border-box); // Makes inputs behave like true block-level elements
+}
+
+
+/* ==========================================================================
+   11. TYPOGRAPHY
+   ========================================================================== */
+
+/**
+ * Text hyphenation
+ * @mode string | Options are: none, manual, auto, all
+ */
+.funcHyphens(@mode:auto){
+  word-wrap:break-word;
+  -webkit-hyphens:@mode;
+     -moz-hyphens:@mode;
+      -ms-hyphens:@mode;
+       -o-hyphens:@mode;
+          hyphens:@mode;
+}
+
+.funcSmoothText(){
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ==========================================================================
+   12. GRID SYSTEM (Whitelabel v2)
+   ========================================================================== */
+
+.funcContainerFixed(){
+    margin-right: auto;
+    margin-left: auto;
+    .funcClearfix();
+}
+
+.funcTableColumnsX(@columnSpan) when (@columnSpan > 0){
+    &.gs-grid-col-@{columnSpan}{ .funcTableColumns(@columnSpan); }
+    .funcTableColumnsX(@columnSpan - 1);
+}
+.funcTableColumnsX(0){}
+.funcTableColumns(@columnSpan){
+    float:none;/* undo default grid column styles */width:((@gridColumnWidth) * @columnSpan) + (@gridGutterWidth * (@columnSpan - 1)) - 16;/* 16 is total padding on left and right of table cells */margin-left:0;/* undo default grid column styles */
+}
+
+.funcHeadingX(@ratio:.35, @base:.75, @num:6) when(@num > 0){
+    h@{num}{ .funcHeading(@ratio, @base, @num); }
+    .funcHeadingX(@ratio, @base, @num - 1);
+}
+.funcHeadingX(0){}
+.funcHeading(@ratio, @base, @num){
+    @multiple:(6 - @num) * @ratio + @base;
+    font-size: 14px * @multiple;
+    line-height: 20px * @multiple;
+}
+
+// Make a Grid
+// Use .makeRow and .makeColumn to assign semantic layouts grid system behavior
+.funcMakeRow(){
+  margin-left:@gridGutterWidth * -1;
+  .funcClearfix();
+}
+.funcMakeColumn(@columns:1, @offset:0){
+  float:left;
+  margin-left:(@gridColumnWidth * @offset) + (@gridGutterWidth * (@offset - 1)) + (@gridGutterWidth * 2);
+  width:(@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns - 1));
+}
+
+#nsGridSystem{
+
+    .funcCore(@gridColumnWidth, @gridGutterWidth){
+
+        .funcColX(@index, @gridColumnWidth, @gridGutterWidth) when (@index > 0){
+            .gs-grid-col-@{index}{ .funcCol(@index, @gridColumnWidth, @gridGutterWidth); }
+            .funcColX(@index - 1, @gridColumnWidth, @gridGutterWidth);
+        }
+        .funcColX(0, @gridColumnWidth, @gridGutterWidth){}
+        .funcCol(@columns, @gridColumnWidth, @gridGutterWidth){width:floor(((@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns - 1))) * 100) / 100;}
+
+        .funcOffsetX(@index, @gridColumnWidth, @gridGutterWidth) when (@index > 0){
+            .gs-grid-offset-@{index}{ .funcOffset(@index, @gridColumnWidth, @gridGutterWidth); }
+            .funcOffsetX(@index - 1, @gridColumnWidth, @gridGutterWidth);
+        }
+        .funcOffsetX(0, @gridColumnWidth, @gridGutterWidth){}
+        .funcOffset(@columns, @gridColumnWidth, @gridGutterWidth){margin-left:(@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns + 1));}
+
+        .gs-grid-row{margin-left:@gridGutterWidth * -1;
+            .funcClearfix();
+        }
+
+        [class*="gs-grid-col-"]{float:left;min-height:1px;/* prevent collapsing columns */margin-left:@gridGutterWidth;}
+
+        .gs-grid-col-align-top{vertical-align:top;float:none;
+            .funcDisplayInlineBlock();
+        }
+
+        .gs-{
+
+            // Set the container width, and override it for fixed navbars in media queries
+            &container,
+            &navbar-static-top .gs-container,
+            &navbar-fixed-top .gs-container,
+            &navbar-fixed-bottom .gs-container{ .funcCol(@gridColumns, @gridColumnWidth, @gridGutterWidth); }
+        }
+
+        .funcColX(@gridColumns, @gridColumnWidth, @gridGutterWidth);
+        .funcOffsetX(@gridColumns, @gridColumnWidth, @gridGutterWidth);
+    }
+
+    .funcFluid(@fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){
+
+        .funcColX(@index, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth) when (@index > 0){
+            .gs-grid-col-@{index}{ .funcCol(@index, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth); }
+            .funcColX(@index - 1, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth);
+        }
+        .funcColX(0, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){}
+        .funcCol(@columns, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){
+            width:floor(((@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1))) * 100) / 100;
+            *width:floor(((@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%)) * 100) / 100;
+        }
+
+        .funcOffsetX(@index, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth) when (@index > 0){
+            .gs-grid-offset-@{index}{ .funcOffset(@index, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth); }
+            .gs-grid-offset-@{index}:first-child{ .offsetFirstChild(@index, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth); }
+            .funcOffsetX(@index - 1, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth);
+        }
+        .funcOffsetX(0, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){}
+        .funcOffset(@columns, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){
+            margin-left:(@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth*2);
+            *margin-left:(@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + (@fluidGridGutterWidth*2) - (.5 / @gridRowWidth * 100 * 1%);
+        }
+        .offsetFirstChild(@columns, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth){
+            margin-left:(@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth);
+            *margin-left:(@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
+        }
+
+        .gs-{
+
+            &grid-{
+
+                &row-fluid{width:100%;
+                    .funcClearfix();
+
+                    [class*="gs-grid-col-"]{
+                        .funcInputBlockLevel();
+                        float:left;margin-left:@fluidGridGutterWidth;*margin-left:@fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
+                    }
+
+                    [class*="gs-grid-col-"]:first-child{margin-left:0;}
+
+                    .gs-grid-col-align-top{vertical-align:top;float:none;
+                        .funcDisplayInlineBlock();
+                    }
+
+                    // Space grid-sized controls properly if multiple per line
+                    .gs-controls-row [class*="gs-grid-col-"] + [class*="gs-grid-col-"]{margin-left:@fluidGridGutterWidth;}
+
+                    .funcColX(@gridColumns, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth);
+                    .funcOffsetX(@gridColumns, @fluidGridColumnWidth, @fluidGridGutterWidth, @gridRowWidth);
+                }
+            }
+        }
+    }
+
+    .funcInput(@gridColumnWidth, @gridGutterWidth){
+
+        .funcColX(@index, @gridColumnWidth, @gridGutterWidth) when (@index > 0){
+            input.gs-grid-col-@{index},
+            textarea.gs-grid-col-@{index},
+            .gs-input-uneditable.gs-grid-col-@{index}{ .funcCol(@index, @gridColumnWidth, @gridGutterWidth); }
+
+            .funcColX(@index - 1, @gridColumnWidth, @gridGutterWidth);
+        }
+        .funcColX(0, @gridColumnWidth, @gridGutterWidth){}
+        .funcCol(@columns, @gridColumnWidth, @gridGutterWidth){width:((((@gridColumnWidth) * @columns) + (@gridGutterWidth * (@columns - 1)) - 14) * 100 ) / 100;}
+
+        input,
+        textarea,
+        .gs-input-uneditable{margin-left:0;/* override margin-left from core grid system */}
+
+        .gs-controls-row [class*="gs-grid-col-"] + [class*="gs-grid-col-"]{margin-left:@gridGutterWidth;}
+
+        .funcColX(@gridColumns, @gridColumnWidth, @gridGutterWidth);
+    }
+}
+

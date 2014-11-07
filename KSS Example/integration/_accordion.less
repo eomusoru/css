@@ -1,0 +1,276 @@
+/**
+ * ACCORDION
+ */
+
+// Accordion
+//
+// Default accordion are builded using CSS3 and class handler with js.
+//
+// .accordion-white  - White version of the accordion 
+//
+// Markup:
+// <div class="accordion js-accordion">
+//     <dl>
+//         <dt><h4>Do I need to pay for this service?</h4></dt>
+//         <dd>
+//             <div class="accordion__content">
+//                 <p>Register with a username and password to enjoy our special discovery offer.</p>
+//             </div>
+//         </dd>
+//         <dt><h4>How do I recredit my account?</h4></dt>
+//         <dd>
+//             <div class="accordion__content">
+//                 <p>Please log in to buy credit. You will then be directed to the page where you can purchase credit packs.</p>
+//             </div>
+//         </dd>
+//     </dl>
+// </div>
+//
+// Styleguide 7.0
+
+/* Items inside accordion class */
+.accordion{
+
+	dl {
+		float: left;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		display: block;
+		font-weight: 100;
+		height:auto;
+
+		/* Items title */
+		dt {
+			display: block;
+			float: left;
+			width: 100%;
+			cursor:pointer;
+			background-color:lighten(@baseBgColor, 3%);
+			position: relative;
+			border-bottom:1px solid @baseBgColor;
+            color: @grey;
+			.funcTransition(all .8s cubic-bezier(0.075, 0.82, 0.165, 1));
+
+			&:hover{
+				background-color:lighten(@baseBgColor,6%);
+			}
+
+			h4{
+				float: left;
+				display: block;
+				line-height: 2.9em;
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				font-weight: 100;
+				width:100%;
+
+				.funcTransition(e('all .5s cubic-bezier(0.075, 0.82, 0.165, 1)'));
+
+				/* Add icons for every item of the accordion list */
+				&:before{
+					font-family: 'dnxlive';
+					content: attr(data-dnxlive-icon);
+					speak: none;
+					font-weight: normal;
+					font-variant: normal;
+					text-transform: none;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					content: "\e605";
+					float:left;
+					padding:0 30px;
+					font-size: 1.4em;
+
+				}
+			}
+
+			/* When the accordion item is opened */
+			&.is-visible {
+				background-color:darken(@white,2%);
+				border-bottom:0;
+				margin-bottom:0;
+				height:auto;
+
+				h4{
+					color:@contrastColor;
+
+					&:before{
+						content:'\e60e';
+					}
+
+				}
+
+				&:hover{
+					background-color: darken(@white,7%);
+					}
+			}
+
+			&:last-of-type{
+				margin-bottom:0;
+			}
+		}
+
+
+
+		/* Content of the accordion__item */
+		dd {
+			display:none;
+			float: left;
+			position: relative;
+			width: 100%;
+			margin: 0;
+			font-size:1em;
+            background-color:darken(@white,2%);
+            color:@baseBgColor;
+            border-bottom:1px solid @baseBgColor;
+            
+            h4 {
+                &:before{
+                    content: "\e60e";
+                }
+            }
+
+			/* Style for the content */
+			.accordion__content {
+				display:block;
+				float:left;
+				padding:15px 85px 25px 85px;
+				line-height: 1.5em;
+				margin:0;
+				height:auto;
+
+				> *{
+					float: left;
+					width: 100%;
+				}
+
+			}
+
+			a:hover{
+				color: @lightContrastColor;
+			}
+		}
+	}
+
+	.accordion__content {
+		p {
+			margin: 0;
+		}
+	}
+}
+
+/* Secont accordion style */
+.accordion-white{
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding: 10px 0;
+	position: relative;
+	display: block;
+	font-weight: 100;
+	height:auto;
+
+	dl{
+		float:left;
+
+		dt {
+			padding: 30px 0;
+			border-bottom: 1px solid #cdcdcd;
+			float:left;
+			width:100%;
+			position:relative;
+			font-weight:500;
+			border-left: 1px solid transparent;
+			border-right: 1px solid transparent;
+
+			> * {
+				margin:0 30px;
+			}
+
+			&.is-visible{
+				border-bottom:0;
+				border-left:1px solid #cdcdcd;
+				border-right:1px solid #cdcdcd;
+				background-color: #ebebeb;
+				/* Set the new up icon for the opened accordion item */
+				.accordion-white__toggle {
+					&:after{
+						content: "\e603";
+						font-family: 'dnxlive';
+					}
+				}
+			}
+
+			&:first-of-type{
+				border-top: 1px solid #cdcdcd;
+				}
+
+				.accordion-white__toggle {
+					float: right;
+					color: @contrastColor;
+					cursor:pointer;
+
+					/* Set the down icon for the unopened item */
+					&:after{
+						content: "\e60e";
+						font-family: 'dnxlive';
+						padding-left: 5px;
+						font-size: 1.3em;
+						float: right;
+					}
+					
+				}
+			}
+
+		dd {
+			display:block;
+			float: left;
+			position: relative;
+			width: 100%;
+			margin: 0;
+			max-height: 0;
+		    height: 0;
+			opacity:0;
+			overflow:hidden;
+			font-size:1em;
+			
+			.accordion-white__content
+			{
+				float:left;
+				height:auto;
+				display:block;
+				position:relative;
+			}
+
+			.funcTransition(e('max-height .8s cubic-bezier(0.075, 0.82, 0.165, 1)'));
+
+			> * {
+				margin:0 30px !important;
+				padding-bottom:30px;
+			}
+
+			/* Class of the opened content. Atuomatically added by jquery */
+			&.is-visible {
+				display:block;
+				opacity:1;
+				max-height: 350px;
+				height:auto;
+				border-left:1px solid #cdcdcd;
+				border-right:1px solid #cdcdcd;
+				border-bottom:1px solid #cdcdcd;
+				background-color: #ebebeb;
+				position: relative;
+
+				h4 {
+					&:before{
+						content: "\e60e";
+					}
+				}
+			}
+		}
+	}
+}
+

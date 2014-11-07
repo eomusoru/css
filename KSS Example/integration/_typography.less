@@ -1,0 +1,94 @@
+/**
+ * TYPOGRAPHY
+ */
+
+// Typography
+//
+// The font used across the project is __'Open Sans'__, available through the __@fontOpenSans variable. Available in those weights: 100, 300, 400, 700.
+//
+// Markup:
+// <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+//
+// Styleguide 4.0
+
+body {
+    font-size: 100%;
+    font-family: @fontOpenSans;
+    font-weight: 300;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+}
+
+.font--huge {
+	font-size: 2.5em;
+	font-weight: 600;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// Font weights
+.font--light   { font-weight: 300; }
+.font--regular { font-weight: 400; }
+.font--bold    { font-weight: 500; }
+
+
+// Titles
+//
+// All titles use the __'Lato'__ font, available through the __@fontLato__ variable. Available in te weights: 300, 400, 700.
+//
+// Markup:
+// <h1>First Level</h1>
+// <h2>Second Level</h2>
+// <h3>Third Level</h3>
+// <h4>Fourth Level</h4>
+// <h5>Fifth Level</h5>
+// <h6>Sixth Level</h6>
+//
+// Styleguide 4.1
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: @fontRoboto;
+    font-weight: 300;
+    line-height: 1;
+}
+
+h1 { font-size: 2.5em; }
+h2 { font-size: 2.25em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.125em; }
+h5 { font-size: 1em; }
+h6 { font-size: .8em; }
+
+
+// Links
+//
+// Default links use the xcams's pink color
+//
+// Markup:
+// <p>Welcome on <a href="#">modelName's</a> chat, we hope you'll enjoy the show</p>
+//
+// Styleguide 4.2
+
+a {
+    text-decoration: none;
+
+    &:link,
+    &:visited {color: @contrastColor;}
+
+    &:hover,
+    &:active {color: @lightContrastColor;}
+
+    &:focus {outline: none;}
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px solid @grey;
+    margin: 10px 0;
+}

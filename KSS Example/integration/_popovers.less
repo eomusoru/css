@@ -1,0 +1,89 @@
+//
+// HEY DUDE !
+// You just have to wrap a div.popover-wrapper around
+// the element that must seem to make appear the popover
+// when clicked, and the .popover itself
+//
+.popover-wrapper {
+    position: relative;
+    .funcDisplayInlineBlock;
+}
+
+//
+// THE POPOVER ITSELF :
+// It's appearance is triggered by jquery
+// but it is animated with css animations (@keyframes)
+// AND with a small opacity transition.
+//
+.popover{
+    display: block;
+    position: absolute;
+    z-index: 9;
+    bottom: 100%;
+    margin-bottom: 12px;
+    left: 50%;
+    height:0;
+    padding:0 20px;
+    overflow: hidden;
+
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+    background-color: @white;
+    border-radius: 5px;
+    opacity:0;
+
+    -webkit-transform-origin: bottom center;
+    -moz-transform-origin: bottom center;
+    -ms-transform-origin: bottom center;
+    transform-origin: bottom center;
+
+    .funcTransition(e('opacity .6s .3s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    &.is-visible{
+        height:auto;
+        opacity:1;
+        overflow: visible;
+        bottom: 100%;
+    }
+
+    &:after{
+        content: '';
+        display: block;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid rgba(255, 255, 255, 1);
+        height: 0;
+        width: 0;
+        position: absolute;
+        left:50%;
+        margin-left: -4px; // half of its width
+        bottom: -8px;
+    }
+
+}
+
+.popover__title {
+    text-align: center;
+    color: @black;
+}
+
+.popover__content {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 100%;
+
+    .popover__list {
+        list-style-type: none;
+        margin: 0 0 0 -10px;
+        padding: 0;
+
+        li {
+            margin: 0 0 10px 10px;
+            .funcDisplayInlineBlock();
+        }
+    }
+
+    .mCSB_container { margin-right: 0; }
+
+    .mCustomScrollBox>.mCSB_scrollTools { right: -7px; }
+}

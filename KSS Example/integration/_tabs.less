@@ -1,0 +1,21 @@
+
+/* TAB ITEMS - PROFILE STYLE */
+.tabs{
+
+	&>div{
+		/* Default state of a tab */
+		display:none;
+		.funcTransition(e('all .7s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+		/* Active state of a tab */
+		&.is-visible{
+			display:block;
+		}
+	}
+
+	ul li {
+		list-style-type: none;
+		display: inline;
+	}
+}
+

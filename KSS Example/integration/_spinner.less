@@ -1,0 +1,73 @@
+/**
+ * SPINNER
+ */
+
+// Spinners
+//
+// Spinners are available in three sizes, please refer to the module's documentation
+// to learn how to trigger it.
+//
+// Markup:
+// <div class="demo__spinner__wrapper">
+//     <div class="spinner">
+//         <div class="spinner__icon"></div>
+//     </div>
+// </div>
+//
+// Styleguide 6.0
+
+.spinner {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    .funcBackgroundRgba(@baseBgColor, .9);
+}
+
+.spinner__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 119px;
+    height: 60px;
+    margin: -30px 0 0 -60px;
+    background: transparent url('@{urlImg}/common/spinner/loader_wl_white.png') no-repeat 0 0;
+}
+
+.spinner[data-size="small"] {
+    
+    .spinner__icon {
+        width: 30px;
+        height: 15px;
+        margin: -7.5px 0 0 -15px;
+        background-size: 720px 15px;
+    }    
+}
+.spinner[data-size="medium"] {
+    
+    .spinner__icon {
+        width: 60px;
+        height: 30px;
+        margin: -15px 0 0 -30px;
+        background-size: 1440px 30px;
+    }    
+}
+
+.spinner[data-size="tiny"] {
+    margin: 0 auto;
+    width: 26px;
+    text-align: center;
+    background: transparent !important;
+    
+    .spinner__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 26px;
+        height: 8px;
+        margin: -6px 0 0 -13px;
+        background: transparent url('@{urlImg}/common/spinner/tiny_loader_white.png') no-repeat 0 0;
+    }    
+}

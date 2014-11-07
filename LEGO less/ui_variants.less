@@ -1,0 +1,26 @@
+.ui_variant(@name, @color, @text-color) {
+	/* Buttons  */
+	.@{name} {
+		&.btn {
+			.button-variant(@text-color, @color);
+		}
+	}
+
+	/* Blocks */
+	.blocks {
+		.blocks-variant(@name, @color, @text-color);
+	}
+
+	/* General modifiers */
+	.bg-@{name} {
+		border-color: @color !important;
+		background-image: none !important;
+	    background-color: @color !important;
+	    color: @text-color !important;
+	}
+
+	/* General Text & Icon Font Colors */
+	.font-@{name} {
+		color: @color !important;
+	}
+}

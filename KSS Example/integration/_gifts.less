@@ -1,0 +1,501 @@
+/**
+ * ALL FORMS STYLES
+ */
+
+/* Gifts common elements for the messages page */
+.messages{
+    /* --------- CHAT GIFT BOX --------- */
+	/* Gifts */
+	&__chat-tooltip{
+		position:absolute;
+		z-index:300;
+		left:28.5%;
+		bottom:77px;
+		padding:10px 20px 20px 20px;
+		display:block;
+		width:50%;
+		overflow:visible;
+		zoom:1;
+		background-color:@white;
+        opacity:0;
+        height:0;
+        z-index:-9999;
+        min-height: 0;
+        max-height: 0;
+        margin-bottom: -30px;
+        .funcTransition(e('margin-bottom .3s cubic-bezier(0.19, 1, 0.22, 1), opacity .3s cubic-bezier(0.19, 1, 0.22, 1)'));
+		.funcBoxShadowMulti(0px 0px 6px #B9B8B8);
+        .funcBorderRadius(5px);
+
+        .lt-ie10 &,
+        .lt-ie9 & {
+            filter:none; // To prevent overflow issues in lte-IE8
+            background-color:#c7c6d0;
+        }
+
+        // invisible element to allow mouseover
+        &::before {
+            position: absolute;
+            right: -4px;
+            bottom: -38px;
+            width: 70px;
+            height: 38px;
+            cursor: pointer;
+            content: '';
+        }
+
+        &::after{
+        	content:'';
+        	display:block;
+        	border-left:8px solid transparent;
+        	border-right:8px solid transparent;
+        	border-top:8px solid @white;
+        	height:0;
+        	width:0;
+        	position:absolute;
+        	bottom:-8px;
+        	left:32%;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .lt-ie8 &{
+        	padding-bottom:45px;
+        }
+
+        /* Confirm box of the selected gift */
+        .tooltip__wrapper{
+            padding:22px 20px;
+            display:block;
+            float:left;
+        }
+
+        .tooltip__text > * {
+            font-weight:400;
+            font-family:@fontRoboto;
+            font-size:16px;
+            line-height:28px;
+            padding-bottom:21px;
+        }
+
+        .tooltip__actions{
+            float: right;
+            width: 47%;
+            text-align: right;
+        }
+
+        .tooltip__button{
+            float:left;
+            display:block;
+            margin-right: 10px;
+        }
+
+        &.tooltip__active{
+            opacity:1;
+            height:auto;
+            z-index: 0;
+            min-height: inherit;
+            max-height: inherit;
+            margin-bottom: 0px;
+        }
+    }
+
+    &__chat-tooltip .gifts{
+    	*zoom:1;
+
+        p{
+        	margin: 5px 10px;
+            text-align: center;
+            font-size: 15px;
+            color: @textButtons;
+        }
+
+        &__list {
+         	*zoom:1;
+         	-webkit-padding-start:0;
+		    -moz-padding-start:0;
+		    padding-start:0;
+            padding:0;
+		}
+
+        &__list li{
+			margin:4px 4px;
+			width:45px;
+			height:45px;
+			display:block;
+			float:left;
+			position:relative;
+			z-index:300;
+			*zoom:1;
+        }
+
+        &__list li:hover{
+            margin:4px 4px;
+            width:45px;
+            height:45px;
+            z-index:301;
+
+            .gifts__inner{
+                position:absolute;
+                background:@white;
+                z-index:301;
+                padding:7px 2px;
+                margin:-24px 0 0 -24px;
+                width:80px;
+                .funcBoxShadow(false, 1px, 1px, 5px, 0, @xcHeaderBg);
+                .funcBorderRadius(5px);
+
+                .gifts__hide{
+                    display:block !important;
+                }
+
+                .virtual-gift-image {
+                    display: none;
+                }
+
+                .virtual-gift-image-hover {
+                    .funcDisplayInlineBlock();
+                }
+            }
+        }
+
+        &__inner{
+            font-size:10px;
+            text-align:center;
+            *zoom:1;
+
+            .gifts__hide{
+                display:none;
+            }
+
+            .virtual-gift-image {
+                width: 45px;
+                height: 45px;
+                .funcDisplayInlineBlock();
+            }
+
+            .virtual-gift-image-hover {
+                display: none;
+                width:60px;
+                height:60px;
+            }
+
+            a {
+                color: @textButtons;
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+        }
+    }
+
+    &__credits {
+        margin-bottom:3px;
+    }
+
+    &__name{
+        margin-top:3px;
+    }
+    /* --------- END CHAT GIFT BOX --------- */
+}
+
+.attached-gift {
+    margin-top: -5px;
+    color: @darkGrey;
+    width: 0;
+    height: 49px;
+    overflow: hidden;
+    font-size: .9em;
+    line-height: 49px;
+    opacity: 0;
+    .funcDisplayInlineBlock();
+    .funcTransition(e('opacity .7s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    .dnxLiveIcon-trombone {
+        color: @mediumGrey;
+        font-size: 26px;
+    }
+
+    .dnxLiveIcon-close {
+        margin-left: 20px;
+        color: @mediumGrey;
+        font-size: 17px;
+    }
+
+    p {
+        height: 49px;
+        padding: 0 8px 0 3px;
+        padding-left: 3px !important;
+        line-height: 49px;
+        background: @grey;
+        vertical-align: top;
+        .funcBorderRadius(4px);
+        .funcDisplayInlineBlock();
+    }
+
+    span {
+        line-height: 49px;
+        vertical-align: top;
+    }
+
+    .attached-gift__image {
+        width: 45px;
+        height: 45px;
+        margin: 2px 15px 0 0;
+        .funcDisplayInlineBlock();
+    }
+
+
+    &.is-visible {
+        width: auto;
+        overflow: visible;
+        opacity: 1;
+    }
+}
+
+
+/* Gifts flat - Chat */
+
+.gifts__flat{
+    height:0;
+    max-height: 0;
+    overflow: hidden;
+    float: left;
+    display: block;
+    position: absolute;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+	background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    bottom:0;
+    padding:0 20px;
+    z-index: 9;
+    -webkit-transform-origin: bottom center;
+    -moz-transform-origin: bottom center;
+    -ms-transform-origin: bottom center;
+    transform-origin: bottom center;
+
+    *{
+        opacity:0;
+    }
+
+    &.is-visible{
+		height:auto;
+		opacity:1;
+		max-height: auto;
+        overflow: visible;
+		bottom: 50px;
+
+        &.gifts__flat--box-1{
+            padding: 14px 6px 3px 18px;
+            height: 500px;
+            max-height: 500px;
+
+            .gifts__items{
+                height:435px;
+            }
+        }
+
+        &.gifts__flat--box-2{
+            height: 250px;
+            max-height: 250px;
+        }
+
+        *{
+            opacity: 1;
+        }
+
+        li {
+            opacity: 1;
+            .funcTransition(e('opacity .6s .3s cubic-bezier(0.19, 1, 0.22, 1)'));
+        }
+
+    }
+
+    /* SIZES FOR THE CONTAINER BOX OF THE GIFTS  */
+    &.gifts__flat--box-1{
+        width: 214px;
+
+        li{
+            width: 60px;
+            margin: 1px;
+            height: 60px;
+            float: left;
+            display: block;
+            border: 2px solid transparent;
+            border-radius: 9px;
+        }
+
+        &.is-visible{
+            bottom: 50px;
+        }
+
+        &:after{
+            left:63px;
+        }
+    }
+
+    /* SIZES FOR THE CONTAINER BOX OF THE GIFTS  */
+    &.gifts__flat--box-2{
+        right: 0;
+        left: initial !important;
+        width: 595px;
+
+        li{
+            width: 60px;
+            margin: 1px;
+            height: 60px;
+            float: left;
+            display: block;
+            border: 2px solid transparent;
+            border-radius: 9px;
+        }
+
+        &.is-visible{
+            bottom: 45px;
+        }
+
+        &:after{
+            right:143px;
+            left:initial;
+        }
+    }
+
+    li{
+        float: left;
+        display: block;
+        opacity:0;
+
+        &.is-selected{
+             border: 2px solid @contrastColor;
+
+             &:hover{
+                figure img {opacity:1;}
+             }
+        }
+    }
+
+    li:hover{
+        figure img {
+            opacity:0.4;
+        }
+
+        figure {background-color:@contrastColor;}
+    }
+
+    figure{
+        cursor:pointer;
+        float: left;
+        margin: 0;
+        padding: 0;
+        width: 60px;
+        border-radius: 7px;
+        height: 60px;
+        overflow: hidden;
+        background: none;
+        display:block;
+        position:relative;
+
+        img{
+            opacity:1;
+            border-radius: 6px;
+        }
+    }
+
+    &:after{
+        content: '';
+        display: block;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid rgba(255, 255, 255, 1);
+        height: 0;
+        width: 0;
+        position: absolute;
+        margin-left: 13px;
+        bottom: -8px;
+        left:67px;
+    }
+
+    .gifts__items {
+        overflow: hidden;
+        float: left;
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+}
+
+
+.popover--gift {
+
+    li.gift-item {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin: 0 0 6px 6px;
+        vertical-align: top;
+        border: 2px solid transparent;
+        .funcBorderRadius(5px);
+        .funcTransition(e('border-color 200ms cubic-bezier(0.645, 0.045, 0.355, 1)'));
+
+        &.is-selected{
+            border-color: @contrastColor;
+
+            &:hover{
+
+               figure {
+
+                    img { opacity: 1; }
+                }
+            }
+        }
+
+        &:hover{
+
+            figure {
+                background-color: @contrastColor;
+
+                img {
+                    opacity:0.4;
+                }
+            }
+
+            .virtual-gift__hover { display: block; }
+        }
+    }
+
+    figure {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        overflow: hidden;
+        background: transparent;
+        .funcBorderRadius(5px);
+
+        img{ opacity:1; }
+    }
+
+    .virtual-gift__hover  {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+/**
+ * MEDIA QUERY FOR RESOLUTIONS OVER 1200px
+ */
+
+@media screen and (min-width: 1200px) {
+    .messages{
+        &__chat-tooltip{
+            width: 41%;
+            left:23.5%;
+        }
+    }
+}

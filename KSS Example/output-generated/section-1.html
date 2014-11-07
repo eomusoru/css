@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Modern CSS - Styleguide</title>
+    <meta name="description" content="" />
+    <meta name="generator" content="kss-node" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="public/kss.css" />
+    <link rel="stylesheet" href="public/style.css" />
+    <!--[if lt IE 9]>
+    <script src="public/html5shiv.js"></script>
+    <![endif]-->
+    <script src="public/modernizr.custom.97914.js"></script>
+  </head>
+  <body id="kss-node">
+    <div class="kss-wrapper">
+      <div class="kss-sidebar">
+        <div class="kss-sidebar-inner">
+          <header class="kss-header">
+            <h1 class="kss-doc-title"><a href="./">Modern CSS: Styleguide</a></h1>
+          </header>
+          <nav class="kss-nav">
+            <ul class="kss-menu" data-kss-ref="1">
+              <li class="kss-menu-item"><a href="./"><span class="kss-ref">0</span><span class="kss-name">Overview</span></a></li>
+              <li class="kss-menu-item"><a href="section-1.html"><span class="kss-ref">1</span><span class="kss-name">Grids</span></a></li>
+              <li class="kss-menu-item"><a href="section-2.html"><span class="kss-ref">2</span><span class="kss-name">Buttons</span></a></li>
+              <li class="kss-menu-item"><a href="section-3.html"><span class="kss-ref">3</span><span class="kss-name">Dropdowns</span></a></li>
+              <li class="kss-menu-item"><a href="section-4.html"><span class="kss-ref">4</span><span class="kss-name">Typography</span></a></li>
+              <li class="kss-menu-item"><a href="section-5.html"><span class="kss-ref">5</span><span class="kss-name">Forms</span></a></li>
+              <li class="kss-menu-item"><a href="section-6.html"><span class="kss-ref">6</span><span class="kss-name">Spinners</span></a></li>
+              <li class="kss-menu-item"><a href="section-7.html"><span class="kss-ref">7</span><span class="kss-name">Accordion</span></a></li>
+              <li class="kss-menu-item"><a href="section-8.html"><span class="kss-ref">8</span><span class="kss-name">Animations</span></a></li>
+              <li class="kss-menu-item"><a href="section-9.html"><span class="kss-ref">9</span><span class="kss-name">Tooltips</span></a></li>
+              <li class="kss-menu-item"><a href="section-10.html"><span class="kss-ref">10</span><span class="kss-name">Feedback</span></a></li>
+              <li class="kss-menu-item"><a href="section-11.html"><span class="kss-ref">11</span><span class="kss-name">Pills</span></a></li>
+            </ul>
+            <ul class="kss-menu-child">
+              <li class="kss-menu-item"><a href="#section-1.1"><span class="kss-ref">1.1</span><span class="kss-name">Columns</span></a></li>
+              <li class="kss-menu-item"><a href="#section-1.2"><span class="kss-ref">1.2</span><span class="kss-name">Nesting</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="kss-content">
+        <article class="kss-article">
+          <section id="section-1" class="kss-section kss-depth-1">
+            <h1 class="kss-title"><span class="kss-ref">1</span> Grids</h1>
+            <div class="kss-description">
+              <p>Default grid is <strong>960px wide</strong>, the <strong>1168px and </strong>1360px grid<strong> is loaded with media queries so
+the older browsers will keep displaying a 960px grid even with a greater
+available space.
+You can add spaces over and under your .grid by using the modifier classes
+</strong>--margin-top<strong> </strong>--margin-bottom<strong> </strong>--margin-both __</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <div class="grid {$modifiers}">Grid Content</div>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.grid--margin-both</div>
+                  <div class="kss-modifier-description">
+                    <p>Add a 20px margin to the top AND bottom of the grid</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <div class="grid grid--margin-both">Grid Content</div>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;div class=&quot;grid {$modifiers}&quot;&gt;Grid Content&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-1.1" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.1</span> Columns</h1>
+            <div class="kss-description">
+              <p>We have <strong>16 Columns</strong> to work on, each columns have <strong>10px left and right margins</strong>,
+resulting to <strong>20px gutters</strong></p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <div class="grid">
+    <div class="grid__column--3">Content</div>
+    <div class="grid__column--3">Content</div>
+    <div class="grid__column--10">Content</div>
+</div>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid__column--3&quot;&gt;Content&lt;/div&gt;
+    &lt;div class=&quot;grid__column--3&quot;&gt;Content&lt;/div&gt;
+    &lt;div class=&quot;grid__column--10&quot;&gt;Content&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-1.2" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.2</span> Nesting</h1>
+            <div class="kss-description">
+              <p>To nest a new grid inside a <strong>column</strong>, you have to use the modifier class <strong>--nested</strong>
+Then write your columns like you would normally do, except that to make two 4Cols fit into a
+8Col, you have to use the modifier classes <strong>--alpha</strong> and <strong>--omega</strong> to
+remove left and right borders.</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <div class="grid">
+    <div class="grid__column--8">Content
+        <div class="grid grid--nested">
+            <div class="grid__column--4 grid__column--alpha">Content</div>
+            <div class="grid__column--4 grid__column--omega">Content</div>
+        </div>
+    </div>
+    <div class="grid__column--8">Content
+    </div>
+</div>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;grid__column--8&quot;&gt;Content
+        &lt;div class=&quot;grid grid--nested&quot;&gt;
+            &lt;div class=&quot;grid__column--4 grid__column--alpha&quot;&gt;Content&lt;/div&gt;
+            &lt;div class=&quot;grid__column--4 grid__column--omega&quot;&gt;Content&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid__column--8&quot;&gt;Content
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+        </article>
+        <footer class="kss-footer">
+          <div>Created using <a href="https://github.com/hughsk/kss-node">kss-node</a> and <a href="https://github.com/htanjo/kss-node-template">kss-node-template</a>.</div>
+        </footer>
+      </div>
+    </div>
+    <script src="public/kss.js"></script>
+    <script src="public/jquery-1.9.1.min.js"></script>
+    <script src="public/floatlabels.js"></script>
+    <script src="public/dropdowns.js"></script>
+    <script src="public/accordion.js"></script>
+    <script src="public/spinnerAnim.js"></script>
+    <!--[if gt IE 8]><!-->
+    <script src="public/rainbow.min.js"></script>
+    <!--<![endif]-->
+    <script src="public/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+// Tooltips
+//
+// Dropdown's behavior is mainly defined in css, we just toggle a is-visible class
+// on it when clicking on its toggle button.
+// This toggle button could be any html <tag> but must have two attributes:
+// - The js-dropdown-toggle class,
+// - A data-href attribute containing a CSS selector
+//
+// Markup:
+// <span data-tooltip="true" class="demo__tooltip">
+//     <div class="tooltip">
+//         <div class="tooltip__heading">Title</div>
+//         <div class="tooltip__content">Here is some tooltip content</div>
+//     </div>
+//     <a href="#">I have a tooltip</a>
+// </span>
+//
+// Styleguide 9.0
+
+[data-tooltip="true"] {
+    position: relative;
+    cursor: pointer;
+    
+    &:hover .tooltip {
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 2;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -155px;
+    width: 300px;
+    height: 0;
+    overflow: hidden;
+    color: @orange;
+    opacity: 0;
+    cursor: default;
+    .funcTransition(e('opacity .5s cubic-bezier(0.19, 1, 0.22, 1)'));
+    .funcBoxShadow(0, 0, 0, 25px, 0, rgba(0,0,0,0.15));
+    
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        height: 10px;
+        width: 100%;
+        background: transparent url('@{urlImg}/common/tooltip/tooltip_bottom.png') repeat-x center top;
+    }
+}
+
+.tooltip__heading {
+    padding: 10px 20px;
+    .funcBackgroundRgba(@lighterYellow, .95);
+}
+
+.tooltip__content {
+    padding: 20px;
+    font-size: .8em;
+    .funcBackgroundRgba(@white, .95);
+}

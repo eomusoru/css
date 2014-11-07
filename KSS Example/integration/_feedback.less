@@ -1,0 +1,127 @@
+/**
+ * FEEDBACKS
+ */
+
+// Feedback
+//
+// When we need a confirmation box, we can use the following box states.
+// Initial state is displayed on 70% of the current div and is positioned 
+// relative to the parent. Use it with the `.feedback` class and add the 
+// modifiers if you need different state of width or colors.
+//
+// .feedback--default              - default grey state
+// .feedback--success              - return a green box info
+// .feedback--info                 - return a blue box info
+// .feedback--warning              - return a yellow box info
+// .feedback--error                - return a red box info
+// .feedback--full.feedback--error - to give 100% width. This require a certain stage color. Ex: `.feedback--error.feedback--full`
+// .feedback--half.feedback--error - to give 50% width
+//
+// Markup:
+// <div class="feedback {$modifiers}">
+//     <div class="feedback__content">
+//         <p>Your message has been sent</p>
+//         <span>X</span>
+//     </div>
+// </div>
+//
+// Styleguide 10.0
+
+.feedback {
+    font-size: 100%;
+    font-family: @fontRoboto;
+    font-weight: 400;
+    line-height: 1em;
+    width:70%;
+    height: 30px;
+    padding: 0;
+	margin: 0;
+	position:relative;
+	opacity:1;
+	.funcTransition(all 300ms cubic-bezier(0.19, 1, 0.22, 1));
+
+	.feedback__content{
+        position: relative;
+        top: 0;
+		padding: 8px 40px 5px 30px;
+		border-radius: 3px;
+		margin:.6em 0;
+		position:relative;
+		display:block;
+        background-color: @white;
+        color:darken(@darkGrey, 5%);
+        opacity: 1;
+        .funcTransition(all 300ms cubic-bezier(0.19, 1, 0.22, 1));
+
+		p{
+			display: block;
+			line-height: 1.3em;
+			margin: 0 60px 0 0;
+			padding: 0 60px 0 0;
+			font-size: 90%;
+		}
+
+		span{
+			position: absolute;
+            top: 6px;
+			right: 8px;
+			line-height: 1.5em;
+			font-weight: 300;
+			cursor:pointer;
+		}
+	}
+
+	&.feedback--default{
+		.feedback__content{
+			background-color: @xcPageBg;
+			color:darken(@darkGrey, 5%);
+		}
+	}
+
+	&.feedback--success{
+		.feedback__content{
+			background-color: lighten(@mediumGreen, 40%);
+			color:darken(@mediumGreen, 20%);
+		}
+	}
+
+	&.feedback--info{
+		.feedback__content{
+			background-color: lighten(@cyan, 50%);
+			color:darken(@cyan, 15%);
+		}
+	}
+
+	&.feedback--warning{
+		.feedback__content{
+			background-color: lighten(@lighterYellow, 15%);
+			color:darken(@mediumYellow, 20%);
+		}
+	}
+
+	&.feedback--error{
+		.feedback__content{
+			background-color: @errorBg;
+			color:@errorTxt;
+		}
+	}
+
+	&.feedback--full{
+		width:100%;
+	}
+
+	&.feedback--half{
+		width:50%;
+	}
+
+	&.feedback--hide{
+        height: 0;
+        .funcTransition(all 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19));
+        
+        .feedback__content {
+            top: -30px;
+            opacity:0;
+            .funcTransition(all 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19));
+        }
+	}
+}

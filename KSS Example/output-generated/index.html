@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Modern CSS - Styleguide</title>
+    <meta name="description" content="" />
+    <meta name="generator" content="kss-node" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="public/kss.css" />
+    <link rel="stylesheet" href="public/style.css" />
+    <!--[if lt IE 9]>
+    <script src="public/html5shiv.js"></script>
+    <![endif]-->
+    <script src="public/modernizr.custom.97914.js"></script>
+  </head>
+  <body id="kss-node">
+    <div class="kss-wrapper">
+      <div class="kss-sidebar">
+        <div class="kss-sidebar-inner">
+          <header class="kss-header">
+            <h1 class="kss-doc-title"><a href="./">Modern CSS: Styleguide</a></h1>
+          </header>
+          <nav class="kss-nav">
+            <ul class="kss-menu" data-kss-ref="0">
+              <li class="kss-menu-item"><a href="./"><span class="kss-ref">0</span><span class="kss-name">Overview</span></a></li>
+              <li class="kss-menu-item"><a href="section-1.html"><span class="kss-ref">1</span><span class="kss-name">Grids</span></a></li>
+              <li class="kss-menu-item"><a href="section-2.html"><span class="kss-ref">2</span><span class="kss-name">Buttons</span></a></li>
+              <li class="kss-menu-item"><a href="section-3.html"><span class="kss-ref">3</span><span class="kss-name">Dropdowns</span></a></li>
+              <li class="kss-menu-item"><a href="section-4.html"><span class="kss-ref">4</span><span class="kss-name">Typography</span></a></li>
+              <li class="kss-menu-item"><a href="section-5.html"><span class="kss-ref">5</span><span class="kss-name">Forms</span></a></li>
+              <li class="kss-menu-item"><a href="section-6.html"><span class="kss-ref">6</span><span class="kss-name">Spinners</span></a></li>
+              <li class="kss-menu-item"><a href="section-7.html"><span class="kss-ref">7</span><span class="kss-name">Accordion</span></a></li>
+              <li class="kss-menu-item"><a href="section-8.html"><span class="kss-ref">8</span><span class="kss-name">Animations</span></a></li>
+              <li class="kss-menu-item"><a href="section-9.html"><span class="kss-ref">9</span><span class="kss-name">Tooltips</span></a></li>
+              <li class="kss-menu-item"><a href="section-10.html"><span class="kss-ref">10</span><span class="kss-name">Feedback</span></a></li>
+              <li class="kss-menu-item"><a href="section-11.html"><span class="kss-ref">11</span><span class="kss-name">Pills</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="kss-content">
+        <article class="kss-article">
+          <section id="section-0" class="kss-section kss-overview">
+             <h1 id="introduction">Introduction</h1>
+<h2 id="front-end-guidelines">Front-end guidelines</h2>
+<p>Due to the project&#39;s complexity, the team&#39;s size, and the geographic distance between its members, it can be very difficult to keep a clean code base.
+That&#39;s why we have to write consistant code, quickly understandable by any colleague or future co-workers.</p>
+<h4 id="basics">BASICS</h4>
+<p>We support IE8+ and are adhering to the &quot;Graceful degradation&quot; principles. This means that we can use most of the CSS3 features, as long as we provide a functional fallback for older browsers.
+Typically, to make a gradient background we won&#39;t use the -ms-filter, displaying a flat background on IE8 and older.</p>
+<h4 id="bem-css">BEM CSS</h4>
+<p>On a front-end point of view, to stick with good practices we chose to adopt a <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">BEM</a> inspired syntax for our CSS.
+To quickly illustrate this naming convention we have <code>blocks</code>, <code>block__elements</code>, and <code>element--modifiers</code></p>
+<pre><code>.block{}
+.block__element{}
+.block--modifier{}
+</code></pre><p>This syntax is completed by javascript specific classes <code>.js-my-selector</code>, this allows us to move easily a javascript behavior from an element to another).</p>
+<p>Then we have also some state specific class like <code>.is-visible</code> or <code>.is-animated</code>, often toggled by javascript.</p>
+<h4 id="javascript">JAVASCRIPT</h4>
+<p>The main guidelines are defined in the project&#39;s redmine at the <a href="http://redmine.dnxnetwork.lu/projects/live-platform/wiki/Coding_standards#Javascript">Javascript section</a>.</p>
+<p><em>More on that soon</em></p>
+<h4 id="twig">TWIG</h4>
+<p>First, we recommend to get familiar with the Twig templating language by reading the <a href="http://twig.sensiolabs.org/documentation">TWIG Documentation</a>.</p>
+<p><em>More on that soon</em></p>
+<h2 id="ressources">Ressources</h2>
+<p>Interactive mockups are created managed with <a href="https://projects.invisionapp.com/d/main/default/#/projects/608745/screens">Invision app</a>. This applications is useful to comment the designs and have it validated.</p>
+<p>The main two fonts used on the project are <strong>&#39;Roboto&#39;</strong> and <strong>&#39;Lato&#39;</strong></p>
+<ul>
+<li><a href="http://www.fontsquirrel.com/fonts/download/roboto">Download Roboto</a></li>
+<li><a href="http://www.fontsquirrel.com/fonts/download/lato">Download Lato</a></li>
+</ul>
+<p>Graphic designers may also download the grid system files to help them structure the design of any page, these have the exact dimensions of the grid used by front-end developpers:</p>
+<ul>
+<li>Illustrator files: <a href="https://drive.google.com/file/d/0B03y-fsHSXbja28yU1VfX3pUZE0/edit?usp=sharing">960 Grid</a>, <a href="https://drive.google.com/file/d/0B03y-fsHSXbjemxxTi14N2puOHc/edit?usp=sharing">1168 Grid</a></li>
+<li>Photoshop files: <a href="https://drive.google.com/file/d/0B03y-fsHSXbjWkl4ZHRNQjg2c28/edit?usp=sharing">960 Grid</a>, <a href="https://drive.google.com/file/d/0B03y-fsHSXbjSVo4LXFxUF9VSEk/edit?usp=sharing">1168 Grid</a></li>
+<li>PNG files: <a href="https://drive.google.com/file/d/0B03y-fsHSXbjbWRkZjNzSVEza2c/edit?usp=sharing">960 Grid</a>, <a href="https://drive.google.com/file/d/0B03y-fsHSXbjNFNweTBqOWtHTWM/edit?usp=sharing">1168 Grid</a></li>
+</ul>
+<h2 id="useful-links">Useful Links</h2>
+<ul>
+<li>Understanding the BEM syntax: <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">Mind BEMding</a></li>
+<li>Official KSS website: <a href="http://warpspire.com/kss/">Knyle Style Sheets</a></li>
+<li>KSS&#39;s Node.js implementation: <a href="https://github.com/hughsk/kss-node">Kss-node</a></li>
+<li>HTML5 Semantic elements: <a href="http://html5doctor.com/">HTML5 Doctor</a></li>
+<li>TWIG templating language documentation: <a href="http://twig.sensiolabs.org/documentation">TWIG</a></li>
+</ul>
+<h2 id="how-this-styleguide-is-built-">How this styleguide is built ?</h2>
+<p>Built upon <a href="https://github.com/kneath/kss">KSS</a> and its <a href="http://nodejs.org/">Node.js</a> implementation, node-kss scans the <strong>.less</strong> files of the project, looking for comments written with its <a href="http://warpspire.com/kss/syntax/">specific syntax</a>.
+To manually generate styleguides on your working copy, there is a few prerequisites:</p>
+<ol>
+<li>Install <a href="http://nodejs.org/">Node.js</a> on your machine.</li>
+<li>Install the <strong>kss-node</strong> package: <code>npm install -g kss</code></li>
+<li>Create a folder outside of your local project ( e.g. <strong>www/docs/</strong> ).</li>
+<li>Download a <a href="https://github.com/htanjo/kss-node-template/archive/master.zip">styleguide template</a> and paste it at the root of your new folder.</li>
+<li>Now you can simply generate the styleguide by running <code>kss-node</code> command with <code>--template</code> option, like below.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<pre><code>kss-node integration/ output-folder/ --template doc/template --less integration/common.less
+</code></pre>
+          </section>
+        </article>
+        <footer class="kss-footer">
+          <div>Created using <a href="https://github.com/hughsk/kss-node">kss-node</a> and <a href="https://github.com/htanjo/kss-node-template">kss-node-template</a>.</div>
+        </footer>
+      </div>
+    </div>
+    <script src="public/kss.js"></script>
+    <script src="public/jquery-1.9.1.min.js"></script>
+    <script src="public/floatlabels.js"></script>
+    <script src="public/dropdowns.js"></script>
+    <script src="public/accordion.js"></script>
+    <script src="public/spinnerAnim.js"></script>
+    <!--[if gt IE 8]><!-->
+    <script src="public/rainbow.min.js"></script>
+    <!--<![endif]-->
+    <script src="public/main.js"></script>
+  </body>
+</html>

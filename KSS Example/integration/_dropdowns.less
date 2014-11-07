@@ -1,0 +1,146 @@
+// Dropdowns
+//
+// Dropdown's behavior is mainly defined in css, we just toggle a is-visible class
+// on it when clicking on its toggle button.
+// This toggle button could be any html <tag> but must have two attributes:
+// - The js-dropdown-toggle class,
+// - A data-href attribute containing a CSS selector
+//
+// Markup:
+// <div class="demo__spacer">
+//     <a class="js-dropdown-toggle button" data-href=".doc__dropdown">
+//         <span class="button__content">Toggle this dropdown</span>
+//     </a>
+//     <div class="dropdown doc__dropdown">
+//         <div class="dropdown__inner">
+//             <span>My dropdown</span>
+//         </div>
+//     </div>
+// </div>
+//
+// Styleguide 3.0
+
+.dropdown {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+    background: @white;
+    font-size: 13px;
+    text-align: left;
+    margin-top: 0px;
+    opacity: 0;
+    .funcBorderRadius(@radius);
+    .funcBoxShadow(false, 0, 2px, 6px, 0, rgba(0,0,0,0.15));
+    .funcTransition(e('margin .3s cubic-bezier(0.19, 1, 0.22, 1), opacity .3s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    &:before {
+        position: absolute;
+        top: -8px;
+        right: 31px;
+        content: "";
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 0 6px 8px 6px;
+        border-color: transparent transparent @white transparent;
+    }
+
+    &.dropdown--alpha:before {
+        left: 39px;
+    }
+
+    &.dropdown--icon-thumb:before{
+        left: 16px;
+    }
+
+    &.is-visible {
+        overflow: visible;
+        padding: 10px 0;
+        max-height: inherit;
+        margin-top: 4px;
+        opacity: 1;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    &.dropdown--grey {
+        background: darken(@lightGrey, 3%);
+
+        &:before {
+            border-color: transparent transparent darken(@lightGrey, 3%) transparent;
+        }
+    }
+
+    &.dropdown--flat{
+        border-radius: 0;
+        padding:0;
+
+        .dropdown__inner{
+            margin:0;
+        }
+
+        ul{
+            float:left;
+            display:block;
+            position:relative;
+            height:auto;
+            width:190px;
+        }
+
+        ul li {
+            list-style-type: none;
+            padding: 4px 10px 2px 5px;
+            height: 30px;
+            border-left:4px solid transparent;
+            cursor:pointer;
+            .funcTransition(e('all .7s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+            &:first-child { padding-top: 6px; }
+            &:last-child  { padding-top: 4px; }
+
+            &:hover{
+                border-left:4px solid @darkPrimaryColor;
+                background-color: @lightestPrimaryColor;
+            }
+        }
+
+        a, label {
+            color: @black;
+
+            &:hover  { color: @black; }
+
+            &:active,
+            &:focus,
+            &.is-active { color: @contrastColor; }
+        }
+
+        [data-dnxlive-icon], span{
+            float:left;
+            height:auto;
+            line-height: 30px;
+        }
+
+        [data-dnxlive-icon]{
+            color:@mediumGrey;
+        }
+    }
+}
+
+.dropdown__inner {
+    margin: 0 10px;
+}
+
+.dropdown__footer {
+    background: @grey;
+    margin: 10px 0 -10px 0;
+    padding: 15px 20px;
+    .funcBorderBottomRightRadius(@radius);
+    .funcBorderBottomLeftRadius(@radius);
+}

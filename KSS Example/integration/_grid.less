@@ -1,0 +1,225 @@
+/**
+ * --------------------------------------------------------------
+ * GRID SYSTEM
+ * --------------------------------------------------------------
+ * @Columns = x16
+ * @Gutters = 20px
+ * @Margins = 10px
+ *
+ * FOUR RESOLUTIONS :
+ * [1600px] {
+ *     ColSize: 80px
+ * }
+ * [1360px] {
+ *     ColSize: 65px
+ * }
+ * [1168px] {
+ *     ColSize: 53px
+ * }
+ * [960px] {
+ *     ColSize: 40px
+ * }
+ *
+ * --------------------------------------------------------------
+ *
+ * Nesting: 
+ * To nest columns use the .grid__alpha & .grid__omega helpers
+ *
+ */
+
+// Grids
+//
+// Default grid is __960px wide__, the __1168px and __1360px grid__ is loaded with media queries so 
+// the older browsers will keep displaying a 960px grid even with a greater 
+// available space.
+// You can add spaces over and under your .grid by using the modifier classes 
+// __--margin-top__ __--margin-bottom__ __--margin-both __
+//
+// .grid--margin-both - Add a 20px margin to the top AND bottom of the grid
+//
+// Markup:
+// <div class="grid {$modifiers}">Grid Content</div>
+//
+// Styleguide 1.0
+.grid {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    *zoom: 1; // IE6/7 Only
+
+    &.grid--margin-top    { margin-top: 20px; }
+    &.grid--margin-bottom { margin-bottom: 20px; }
+    &.grid--margin-both   {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    // Clearfix
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after { clear: both; }
+    
+    &.grid--nested {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+
+// Columns
+//
+// We have __16 Columns__ to work on, each columns have __10px left and right margins__,
+// resulting to __20px gutters__
+//
+// Markup:
+// <div class="grid">
+//     <div class="grid__column--3">Content</div>
+//     <div class="grid__column--3">Content</div>
+//     <div class="grid__column--10">Content</div>
+// </div>
+//
+// Styleguide 1.1
+[class^="grid__column"] {
+    margin-right: 10px;
+    margin-left: 10px;
+    float: left;
+}
+
+.grid__column--1  { width: 40px; }
+.grid__column--2  { width: 100px; }
+.grid__column--3  { width: 160px; }
+.grid__column--4  { width: 220px; }
+.grid__column--5  { width: 280px; }
+.grid__column--6  { width: 340px; }
+.grid__column--7  { width: 400px; }
+.grid__column--8  { width: 460px; }
+.grid__column--9  { width: 520px; }
+.grid__column--10 { width: 580px; }
+.grid__column--11 { width: 640px; }
+.grid__column--12 { width: 700px; }
+.grid__column--13 { width: 780px; }
+.grid__column--14 { width: 840px; }
+.grid__column--15 { width: 900px; }
+
+.grid__column--16 {
+    width: 960px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.grid__column--alpha { margin-left: 0; }
+.grid__column--omega { margin-right: 0; }
+
+
+/**
+ * MEDIA QUERY FOR RESOLUTIONS ABOVE 1200px
+ */
+
+@media screen and (min-width: 1200px) {
+
+    .grid { width: 1168px; }
+    
+    .grid__column--1  { width: 53px; }
+    .grid__column--2  { width: 126px; }
+    .grid__column--3  { width: 199px; }
+    .grid__column--4  { width: 272px; }
+    .grid__column--5  { width: 345px; }
+    .grid__column--6  { width: 418px; }
+    .grid__column--7  { width: 491px; }
+    .grid__column--8  { width: 564px; }
+    .grid__column--9  { width: 637px; }
+    .grid__column--10 { width: 710px; }
+    .grid__column--11 { width: 783px; }
+    .grid__column--12 { width: 856px; }
+    .grid__column--13 { width: 929px; }
+    .grid__column--14 { width: 1002px; }
+    .grid__column--15 { width: 1075px; }
+    .grid__column--16 { width: 1148px; }
+}
+
+
+/**
+ * MEDIA QUERY FOR RESOLUTIONS ABOVE 1400px
+ */
+
+@media screen and (min-width: 1400px) {
+    
+    // Only available for .grid-full pages
+    .grid-full,
+    .grid-large {
+        
+        .grid { width: 1360px; }
+
+        .grid__column--1  { width: 65px; }
+        .grid__column--2  { width: 150px; }
+        .grid__column--3  { width: 235px; }
+        .grid__column--4  { width: 320px; }
+        .grid__column--5  { width: 405px; }
+        .grid__column--6  { width: 490px; }
+        .grid__column--7  { width: 575px; }
+        .grid__column--8  { width: 660px; }
+        .grid__column--9  { width: 745px; }
+        .grid__column--10 { width: 830px; }
+        .grid__column--11 { width: 915px; }
+        .grid__column--12 { width: 1000px; }
+        .grid__column--13 { width: 1085px; }
+        .grid__column--14 { width: 1170px; }
+        .grid__column--15 { width: 1255px; }
+        .grid__column--16 { width: 1340px; }
+    }
+}
+
+/**
+ * MEDIA QUERY FOR RESOLUTIONS ABOVE 1600px
+ */
+
+@media screen and (min-width: 1680px) {
+    
+    // Only available for .grid-full pages
+    .grid-full {
+
+        .grid { width: 1600px; }
+
+        .grid__column--1  { width: 80px; }
+        .grid__column--2  { width: 180px; }
+        .grid__column--3  { width: 280px; }
+        .grid__column--4  { width: 380px; }
+        .grid__column--5  { width: 480px; }
+        .grid__column--6  { width: 580px; }
+        .grid__column--7  { width: 680px; }
+        .grid__column--8  { width: 780px; }
+        .grid__column--9  { width: 880px; }
+        .grid__column--10 { width: 980px; }
+        .grid__column--11 { width: 1080px; }
+        .grid__column--12 { width: 1180px; }
+        .grid__column--13 { width: 1280px; }
+        .grid__column--14 { width: 1380px; }
+        .grid__column--15 { width: 1480px; }
+        .grid__column--16 { width: 1580px; }
+    }
+}
+
+// Nesting
+//
+// To nest a new grid inside a __column__, you have to use the modifier class __--nested__
+// Then write your columns like you would normally do, except that to make two 4Cols fit into a
+// 8Col, you have to use the modifier classes __--alpha__ and __--omega__ to 
+// remove left and right borders.
+//
+// Markup:
+// <div class="grid">
+//     <div class="grid__column--8">Content
+//         <div class="grid grid--nested">
+//             <div class="grid__column--4 grid__column--alpha">Content</div>
+//             <div class="grid__column--4 grid__column--omega">Content</div>
+//         </div>
+//     </div>
+//     <div class="grid__column--8">Content
+//     </div>
+// </div>
+//
+// Styleguide 1.2

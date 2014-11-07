@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Modern CSS - Styleguide</title>
+    <meta name="description" content="" />
+    <meta name="generator" content="kss-node" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="public/kss.css" />
+    <link rel="stylesheet" href="public/style.css" />
+    <!--[if lt IE 9]>
+    <script src="public/html5shiv.js"></script>
+    <![endif]-->
+    <script src="public/modernizr.custom.97914.js"></script>
+  </head>
+  <body id="kss-node">
+    <div class="kss-wrapper">
+      <div class="kss-sidebar">
+        <div class="kss-sidebar-inner">
+          <header class="kss-header">
+            <h1 class="kss-doc-title"><a href="./">Modern CSS: Styleguide</a></h1>
+          </header>
+          <nav class="kss-nav">
+            <ul class="kss-menu" data-kss-ref="5">
+              <li class="kss-menu-item"><a href="./"><span class="kss-ref">0</span><span class="kss-name">Overview</span></a></li>
+              <li class="kss-menu-item"><a href="section-1.html"><span class="kss-ref">1</span><span class="kss-name">Grids</span></a></li>
+              <li class="kss-menu-item"><a href="section-2.html"><span class="kss-ref">2</span><span class="kss-name">Buttons</span></a></li>
+              <li class="kss-menu-item"><a href="section-3.html"><span class="kss-ref">3</span><span class="kss-name">Dropdowns</span></a></li>
+              <li class="kss-menu-item"><a href="section-4.html"><span class="kss-ref">4</span><span class="kss-name">Typography</span></a></li>
+              <li class="kss-menu-item"><a href="section-5.html"><span class="kss-ref">5</span><span class="kss-name">Forms</span></a></li>
+              <li class="kss-menu-item"><a href="section-6.html"><span class="kss-ref">6</span><span class="kss-name">Spinners</span></a></li>
+              <li class="kss-menu-item"><a href="section-7.html"><span class="kss-ref">7</span><span class="kss-name">Accordion</span></a></li>
+              <li class="kss-menu-item"><a href="section-8.html"><span class="kss-ref">8</span><span class="kss-name">Animations</span></a></li>
+              <li class="kss-menu-item"><a href="section-9.html"><span class="kss-ref">9</span><span class="kss-name">Tooltips</span></a></li>
+              <li class="kss-menu-item"><a href="section-10.html"><span class="kss-ref">10</span><span class="kss-name">Feedback</span></a></li>
+              <li class="kss-menu-item"><a href="section-11.html"><span class="kss-ref">11</span><span class="kss-name">Pills</span></a></li>
+            </ul>
+            <ul class="kss-menu-child">
+              <li class="kss-menu-item"><a href="#section-5.1"><span class="kss-ref">5.1</span><span class="kss-name">Float-labels</span></a></li>
+              <li class="kss-menu-item"><a href="#section-5.2"><span class="kss-ref">5.2</span><span class="kss-name">Carets</span></a></li>
+              <li class="kss-menu-item"><a href="#section-5.3"><span class="kss-ref">5.3</span><span class="kss-name">Nice-form: Checkboxes &amp; Radios</span></a></li>
+              <li class="kss-menu-item"><a href="#section-5.4"><span class="kss-ref">5.4</span><span class="kss-name">Select</span></a></li>
+              <li class="kss-menu-item"><a href="#section-5.5"><span class="kss-ref">5.5</span><span class="kss-name">Errors</span></a></li>
+              <li class="kss-menu-item"><a href="#section-5.6"><span class="kss-ref">5.6</span><span class="kss-name">Field hints</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="kss-content">
+        <article class="kss-article">
+          <section id="section-5" class="kss-section kss-depth-1">
+            <h1 class="kss-title"><span class="kss-ref">5</span> Forms</h1>
+            <div class="kss-description">
+              <p>Simple form inputs, select, no border, box-shadowed on :focus. They are over a light background by default.</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="{$modifiers}" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--light</div>
+                  <div class="kss-modifier-description">
+                    <p>To make an input stand over a dark background</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--light" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--bevelled</div>
+                  <div class="kss-modifier-description">
+                    <p>Nice bevelled input</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--bevelled" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--pink</div>
+                  <div class="kss-modifier-description">
+                    <p>A nice pink input</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--pink" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--gold</div>
+                  <div class="kss-modifier-description">
+                    <p>A nice gold input</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--gold" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--rounded</div>
+                  <div class="kss-modifier-description">
+                    <p>Rounded corners for input. It works preety nice with input--pink</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--rounded" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.input--large</div>
+                  <div class="kss-modifier-description">
+                    <p>A largest type of input. Used for header login</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="input--large" />
+</form>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">select</div>
+                  <div class="kss-modifier-description">
+                    <p>List item style</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <form>
+    <input type="text" placeholder="Sample input" class="select" />
+</form>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;form&gt;
+    &lt;input type=&quot;text&quot; placeholder=&quot;Sample input&quot; class=&quot;{$modifiers}&quot; /&gt;
+&lt;/form&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.1" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.1</span> Float-labels</h1>
+            <div class="kss-description">
+              <p>An iOs like implementation of the label, when an user startq typing in an input,
+a hidden label fades in above the field, and disappears when the user clears the input.
+This is transparent with non-capable browsers that simply displays the hidden label.</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <div class="float-label demo__bg__white">
+    <div class="float-label__wrapper">
+        <label for="userid" class="">Email / pseudo</label>
+        <input type="text" name="username" id="idLabelForHeaderLogin" placeholder="Email / pseudo">
+    </div>
+</div>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;div class=&quot;float-label demo__bg__white&quot;&gt;
+    &lt;div class=&quot;float-label__wrapper&quot;&gt;
+        &lt;label for=&quot;userid&quot; class=&quot;&quot;&gt;Email / pseudo&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;idLabelForHeaderLogin&quot; placeholder=&quot;Email / pseudo&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.2" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.2</span> Carets</h1>
+            <div class="kss-description">
+              <p>Simple arrows, 8px wide, use them in dropdowns toggles etc...</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <span class="caret caret--white {$modifiers}"></span>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.caret--small</div>
+                  <div class="kss-modifier-description">
+                    <p>Smaller caret: 5px wide</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <span class="caret caret--white caret--small"></span>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;span class=&quot;caret caret--white {$modifiers}&quot;&gt;&lt;/span&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.3" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.3</span> Nice-form: Checkboxes &amp; Radios</h1>
+            <div class="kss-description">
+              <p>A custom style for checkboxes &amp; radios using CSS, and modernizr&#39;s compatibility classes
+to only serve these styles to capable browsers</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <fieldset class="demo__bg__white">
+    <input type="checkbox" id="stay-connected">
+    <label for="stay-connected" class="nice-form__checkbox">Stay connected</label>
+</fieldset>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;fieldset class=&quot;demo__bg__white&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;stay-connected&quot;&gt;
+    &lt;label for=&quot;stay-connected&quot; class=&quot;nice-form__checkbox&quot;&gt;Stay connected&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.4" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.4</span> Select</h1>
+            <div class="kss-description">
+              <p>Simple select</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <select class='{$modifiers}'>
+     <option>List item1</option>
+     <option>List item2</option>
+     <option>List item3</option>
+</select>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.select--grey</div>
+                  <div class="kss-modifier-description">
+                    <p>List item style</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <select class='select--grey'>
+     <option>List item1</option>
+     <option>List item2</option>
+     <option>List item3</option>
+</select>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;select class=&#x27;{$modifiers}&#x27;&gt;
+     &lt;option&gt;List item1&lt;/option&gt;
+     &lt;option&gt;List item2&lt;/option&gt;
+     &lt;option&gt;List item3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.5" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.5</span> Errors</h1>
+            <div class="kss-description">
+              <p>Error notifications, default error have an arrow pointing to the bottom</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <fieldset class="demo__bg__white">
+     <span class='field-error {$modifiers}'>This field is required</span>
+     <input type="text" name="username" class="is-invalid" value="invalid text" />
+</fieldset>
+                </div>
+              </div>
+              <div class="kss-modifier">
+                <div class="kss-modifier-head">
+                  <div class="kss-modifier-name">.field-error--bottom</div>
+                  <div class="kss-modifier-description">
+                    <p>With an arrow pointing at the top</p>
+
+                  </div>
+                </div>
+                <div class="kss-modifier-example">
+                  <fieldset class="demo__bg__white">
+     <span class='field-error field-error--bottom'>This field is required</span>
+     <input type="text" name="username" class="is-invalid" value="invalid text" />
+</fieldset>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;fieldset class=&quot;demo__bg__white&quot;&gt;
+     &lt;span class=&#x27;field-error {$modifiers}&#x27;&gt;This field is required&lt;/span&gt;
+     &lt;input type=&quot;text&quot; name=&quot;username&quot; class=&quot;is-invalid&quot; value=&quot;invalid text&quot; /&gt;
+&lt;/fieldset&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+          <section id="section-5.6" class="kss-section kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">5.6</span> Field hints</h1>
+            <div class="kss-description">
+              <p>Animated hints for inputs</p>
+
+            </div>
+            <div class="kss-modifier-block">
+              <div class="kss-modifier kss-modifier-original">
+                <div class="kss-modifier-example">
+                  <fieldset class="demo__bg__white demo--field-hint">
+     <input type="text">
+     <small class="field-hint">A valid email adress is required to enjoy the offer</small>
+</fieldset>
+                </div>
+              </div>
+              <div class="kss-markup">
+                <pre><code data-language="html">&lt;fieldset class=&quot;demo__bg__white demo--field-hint&quot;&gt;
+     &lt;input type=&quot;text&quot;&gt;
+     &lt;small class=&quot;field-hint&quot;&gt;A valid email adress is required to enjoy the offer&lt;/small&gt;
+&lt;/fieldset&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+        </article>
+        <footer class="kss-footer">
+          <div>Created using <a href="https://github.com/hughsk/kss-node">kss-node</a> and <a href="https://github.com/htanjo/kss-node-template">kss-node-template</a>.</div>
+        </footer>
+      </div>
+    </div>
+    <script src="public/kss.js"></script>
+    <script src="public/jquery-1.9.1.min.js"></script>
+    <script src="public/floatlabels.js"></script>
+    <script src="public/dropdowns.js"></script>
+    <script src="public/accordion.js"></script>
+    <script src="public/spinnerAnim.js"></script>
+    <!--[if gt IE 8]><!-->
+    <script src="public/rainbow.min.js"></script>
+    <!--<![endif]-->
+    <script src="public/main.js"></script>
+  </body>
+</html>

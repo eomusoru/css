@@ -1,0 +1,52 @@
+// Button variants
+.button-variant(@color, @background) {
+  color: @color;
+  background-color: @background;
+
+  &:hover, &:focus, &:active, &.active {
+    color: @color;
+    background-color: darken(@background, 8%);
+  }
+
+  &.disabled, &[disabled], fieldset[disabled] & {
+    &, &:hover, &:focus, &:active, &.active {
+      background-color: @background;
+    }
+  }
+}
+
+// Blocks variant
+.blocks-variant(@name, @bg-color, @text-color) {
+  &.@{name} {
+      background-color: @bg-color;  
+
+      &.blocks-light:hover {
+          background-color: darken(@bg-color, 4%);            
+      }
+
+      .visual {
+          > i { 
+              color: @text-color;
+              opacity: 0.1;
+              filter: alpha(opacity=10); 
+          }
+      }
+
+      .details {
+          .number {
+              color: @text-color; 
+          }
+
+          .desc {
+              color: @text-color; 
+              opacity: 1;
+              filter: alpha(opacity=100);    
+          }              
+      }
+
+      .more {
+          color: @text-color;
+          background-color: darken(@bg-color, 4%);   
+      }
+  }
+}

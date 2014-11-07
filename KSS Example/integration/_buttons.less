@@ -1,0 +1,789 @@
+// Buttons
+//
+// Default button have a transparent background and a faded white border (alpha: .5).
+// It has a 30px height and a soft radius.
+//
+// .button--small                    - Tiny buttons - 25px tall
+// .button--medium                   - Tiny buttons - 35px tall
+// .button--big                      - Big buttons - 40px tall
+// .button--large                    - Large buttons - 10px padding on the sides
+// .button--2xlarge                  - Large buttons - 40px padding on the sides
+// .button--full                     - Button fullwidth
+// .button--white.button--big        - Button with a white background;
+// .button--grey.button--big         - Grey buttons
+// .button--disabled                 - Disabled buttons
+// .button--live.button--big         - Go live Chat buttons
+// .button--private.button--big      - Go private buttons
+// .button--free.button--big         - Free chat buttons
+// .button--voyeur.button--big       - Go Voyeur
+// .button--transparent              - Button that is having just a black background with .3 opacity;
+// .button--inverse                  - These buttons have no background and their border appears on :hover
+// .button--action                   - The "CLICK ME" button, its bevelled and bordered, it is taller than regular buttons (40px)
+// .button--dark                     - Dark buttons, based on the @baseBgColor variable
+// .button--light                    - Light buttons, based on the @baseBgColor variable
+// .button--primary                  - Primary button, based on the @primaryColor variable
+// .button--contrast                 - Contrast button, based on the @contrastColor variable
+// .button--left-rounded             - Button rounded at left side
+// .button--right-rounded            - Button rounded at right side
+// .button--hipster                  - The "fashion victim" button
+// .button--hipster.button--contrast - The "fashion victim" button
+// .button--no-decoration            - Button that is not having any border on any action (hover or not);
+// .button--rounded                  - Buttons with a bigger border radius
+//
+// Markup:
+// <div class="button {$modifiers}">
+//     <span class="button__content">Button text</span>
+// </div>
+//
+// Styleguide 2.0
+
+.button {
+    padding: 0;
+    height: 30px;
+    min-width: 30px;
+    overflow: hidden;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: @white;
+    background: transparent;
+    cursor: pointer;
+    text-align: center;
+
+    .funcDisplayInlineBlock();
+    .funcBorderRadius(@radius);
+    .funcAppearanceNone();
+    .funcBoxSizing(); // Border-box
+    .funcTransition(e('all .6s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+    .caret {
+        border-top-color: @white;
+        margin: 10px 3px 0 -9px;
+    }
+
+    &:link,
+    &:visited { color: @white; }
+
+    &:hover{
+        color: @black;
+        background-color: @white;
+
+        i { color: @black; }
+
+        .caret {border-top-color: @black;}
+    }
+
+    &:active {
+        color: @black;
+        background: @grey;
+
+        .caret {border-top-color: @black;}
+    }
+
+    &:focus {outline: none;}
+
+    .button__content {
+        display: block;
+        height: 100%;
+        padding: 0 5px;
+        line-height: 30px;
+        vertical-align: top;
+
+        i[data-dnxlive-icon],
+        i[class^="dnxLiveIcon-"],
+        i[class*=" dnxLiveIcon-"] {
+            font-size: 35px;
+            vertical-align: top;
+        }
+    }
+
+    &.button--small {
+        height: 25px;
+
+        .button__content {
+            font-size: 12px;
+            line-height: 25px;
+        }
+    }
+
+    &.button--medium {
+        height: 35px;
+        line-height: 31px;
+
+        .button__content {
+            padding: 0 10px;
+            font-size: 14px;
+            line-height: 31px;
+        }
+    }
+
+    &.button--big {
+        height: 40px;
+
+        .button__content {
+            padding: 0 10px;
+            font-size: 16px;
+            line-height: 40px;
+        }
+    }
+
+    &.button--large{
+        padding:0 10px;
+    }
+
+    &.button--2xlarge{
+        padding:0 40px;
+
+        .button__content{
+            line-height: 35px;
+        }
+
+        &:hover{
+            .button__content
+            {
+                line-height: 41px;
+            }
+        }
+    }
+
+    &.button--full {
+        margin-right: 0;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    &.button--white {
+        background-color: darken(@white,2%);
+        color: @darkGrey;
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@grey, 10%));
+
+        &:hover {
+            background-color: @white;
+            color: @darkGrey;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+
+
+             .button__content{
+                color:@darkGrey;
+            }
+        }
+
+        &:active {
+            color: @darkGrey;
+            background: @white;
+        }
+
+        .button__content{
+            color:@darkGrey;
+        }
+    }
+
+    &.button--grey {
+        background: @grey;
+        color: @darkGrey;
+        border: 1px solid darken(@grey, 5%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@grey, 10%));
+
+        &:hover {
+            color: @darkGrey;
+            background: @lightGrey;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            color: @darkGrey;
+            background: @white;
+        }
+    }
+
+    &.button--disabled {
+        background: @grey;
+        color: @mediumGrey;
+        border: 1px solid darken(@grey, 5%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@grey, 10%));
+
+        &:hover {
+            background: @grey;
+            color: @mediumGrey;
+            .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@grey, 10%));
+        }
+
+        &:active {
+            background: @grey;
+            color: @mediumGrey;
+        }
+
+        &.button--small{
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+            }
+        }
+    }
+
+    &.button--live {
+        background: @liveButtonColor;
+        color: mix(@black, darken(@liveButtonColor, 20%), 60%);
+        border: 1px solid saturate(darken(@liveButtonColor, 15%), 20%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, saturate(darken(@liveButtonColor, 15%), 20%));
+
+        &:hover {
+            background: lighten(@liveButtonColor, 5%);
+            border-color: @liveButtonColor;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@liveButtonColor, 5%);
+            background: lighten(@liveButtonColor, 10%);
+        }
+
+        &.button--small{
+
+            &:hover{
+                .button__content{
+                    line-height: 23px;
+                }
+            }
+
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+
+                &:hover{line-height: 39px;}
+            }
+        }
+    }
+
+    &.button--private {
+        background: @privateButtonColor;
+        color: mix(@black, darken(@privateButtonColor, 15%), 60%);
+        border: 1px solid saturate(darken(@privateButtonColor, 12%), 20%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, saturate(darken(@privateButtonColor, 12%), 20%));
+
+        &:hover {
+            background: lighten(@privateButtonColor, 5%);
+            border-color: @privateButtonColor;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@privateButtonColor, 5%);
+            background: lighten(@privateButtonColor, 10%);
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+
+                &:hover{line-height: 39px;}
+            }
+        }
+    }
+
+    &.button--free {
+        background: @freeButtonColor;
+        color: mix(@black, darken(@freeButtonColor, 15%), 60%);
+        border: 1px solid saturate(darken(@freeButtonColor, 8%), 20%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, saturate(darken(@freeButtonColor, 8%), 20%));
+
+        &:hover {
+            background: lighten(@freeButtonColor, 5%);
+            border-color: @freeButtonColor;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@freeButtonColor, 5%);
+            background: lighten(@freeButtonColor, 10%);
+        }
+
+        &.button--small{
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+            }
+
+            &:hover{
+                .button__content
+                {
+                    line-height: 41px;
+                }
+            }
+        }
+    }
+
+    &.button--green {
+        background: @lightGreen;
+        color: @darkGreen;
+        border: 1px solid saturate @mediumGreen;
+        .funcBoxShadow(inset, 0, -2px, 0, 0, @mediumGreen);
+
+        &:hover {
+            background: lighten(@lightGreen, 5%);
+            border-color: @lightGreen;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@lightGreen, 5%);
+            background: lighten(@lightGreen, 10%);
+        }
+
+        &.button--small{
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+            }
+
+            &:hover{
+                .button__content
+                {
+                    line-height: 41px;
+                }
+            }
+        }
+
+        &.is-sent,
+        &.is-disabled,
+        &.is-loading {
+            &:hover,
+            &:active,
+            &:focus {
+                background: @lightGreen;
+                color: @darkGreen;
+                border: 1px solid @mediumGreen;
+                .funcBoxShadow(inset, 0, -2px, 0, 0, @mediumGreen);
+            }
+        }
+    }
+
+    &.button--red {
+        background: @lightRed;
+        color: @darkRed;
+        border: 1px solid saturate @mediumRed;
+        .funcBoxShadow(inset, 0, -2px, 0, 0, @mediumRed);
+
+        &:hover {
+            background: lighten(@lightRed, 5%);
+            border-color: @lightRed;
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@lightRed, 5%);
+            background: lighten(@lightRed, 10%);
+        }
+
+        &.button--small{
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+            }
+
+            &:hover{
+                .button__content
+                {
+                    line-height: 41px;
+                }
+            }
+        }
+
+        &.is-sent,
+        &.is-disabled,
+        &.is-loading {
+            &:hover,
+            &:active,
+            &:focus {
+                background: @lightRed;
+                color: @darkGreen;
+                border: 1px solid @mediumRed;
+                .funcBoxShadow(inset, 0, -2px, 0, 0, @mediumRed);
+            }
+        }
+    }
+
+    &.button--voyeur {
+        background: lighten(@voyeurButtonColor, 8%);
+        color: @darkerPurple;
+        border: 1px solid lighten(@voyeurButtonColor, 5%);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, @voyeurButtonColor);
+
+        &:hover {
+            background: lighten(@voyeurButtonColor, 12%);
+            border-color: lighten(@voyeurButtonColor, 8%);
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active {
+            border-color: lighten(@voyeurButtonColor, 12%);
+            background: lighten(@voyeurButtonColor, 15%);
+        }
+
+        &.button--small{
+            .button__content{
+                line-height: 22px;
+            }
+        }
+
+        &.button--big{
+            padding: 0 30px;
+
+            .button__content{
+                line-height: 35px;
+            }
+
+            &:hover{
+                .button__content
+                {
+                    line-height: 41px;
+                }
+            }
+        }
+
+        &.is-sent,
+        &.is-disabled,
+        &.is-loading {
+            &:hover,
+            &:active,
+            &:focus {
+                cursor: default;
+                background: lighten(@voyeurButtonColor, 8%);
+                color: @darkerPurple;
+                border: 1px solid lighten(@voyeurButtonColor, 5%);
+                .funcBoxShadow(inset, 0, -2px, 0, 0, @voyeurButtonColor);
+            }
+        }
+    }
+
+    &.button--transparent {
+        background:none;
+        border:none;
+
+        &.button--black{
+            background-color: rgba(0, 0, 0, .3);
+            color:@white;
+
+            &:hover{
+                background-color:none;
+                cursor:default;
+            }
+        }
+    }
+
+    &.button--inverse {
+        border-color: transparent;
+
+        &:hover {
+            color: @white;
+            background: transparent;
+            border-color: @white;
+            border-color: rgba(255, 255, 255, 0.5);
+
+            i { color: @white; }
+
+            .caret {border-top-color: @white;}
+        }
+
+        &:active {
+            border-color: @white;
+            border-color: rgba(255, 255, 255, 1);
+            border-color: transparent;
+
+            .caret {border-top-color: @white;}
+        }
+    }
+
+    &.button--action {
+        height: 40px;
+        padding: 0 20px;
+        line-height: 36px;
+        color: @darkGrey;
+        border: 1px solid darken(@grey, 23%);
+        .funcBackgroundGradientTopToBottomHex(@grey, @grey, darken(@grey, 3%), 0);
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@grey, 15%));
+        .funcTransition(e('all .4s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+        .button__content { line-height: 36px; }
+
+        &:hover {
+            background: lighten(@grey, 2%);
+            line-height: 40px;
+            .funcBoxShadow(inset, 0, 1px, 0, 0, darken(@grey, 5%));
+
+            .button__content { line-height: 38px; }
+        }
+
+        &:active {
+            background: lighten(@grey, 5%);
+            .funcBoxShadow(inset, 0, 2px, 0, 0, darken(@grey, 5%));
+
+            .button__content { line-height: 40px; }
+        }
+    }
+
+    &.button--dark {
+        background-color: @darkButtonColor;
+        border:1px solid darken(@darkButtonColor, 5%);
+        color: textColorToWhiteOrBlack(@darkButtonColor);
+        .funcBoxShadow(inset, 0, -1px, 0, 0, darken(@darkButtonColor, 10%));
+
+        &:hover, &:active{
+            color:  textColorToWhiteOrBlack(@darkButtonColor);
+            background-color: lighten(@darkButtonColor, 5%);
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active,
+        &:focus {
+            background-color: lighten(@darkButtonColor, 10%);
+        }
+    }
+
+    &.button--light {
+        background-color: @lightButtonColor;
+        border:1px solid darken(@lightButtonColor, 10%);
+        border: 0;
+        .funcBoxShadow(inset, 0, -1px, 0, 0, darken(@lightButtonColor, 10%));
+
+        &:hover, &:active{
+            color: @white;
+            background-color: lighten(@lightButtonColor, 5%);
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &:active,
+        &:focus {
+            background-color: lighten(@lightButtonColor, 10%);
+        }
+    }
+
+    &.button--primary {
+        background-color: @primaryButtonColor;
+        border: 0;
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@primaryButtonColor, 5%));
+
+        &:hover, &:active{
+            color:@white;
+            background-color: lighten(@primaryButtonColor, 5%);
+        }
+
+        &:active{
+            background-color: lighten(@primaryButtonColor, 10%);
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &.button--big:hover{
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &.button--big small{
+            color:@white;
+            margin-top: 0px;
+        }
+    }
+
+    &.button--contrast {
+        background-color: @contrastButtonColor;
+        border: 0;
+        .funcBoxShadow(inset, 0, -2px, 0, 0, darken(@contrastButtonColor, 5%));
+
+        &:hover, &:active{
+            color:@white;
+            background-color: lighten(@contrastButtonColor, 5%);
+        }
+
+        &:active{
+            background-color: lighten(@contrastButtonColor, 10%);
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &.button--big:hover{
+            .funcBoxShadow(inset, 0, 0, 0, 0, transparent);
+        }
+
+        &.button--big small{
+            color:@white;
+            margin-top: 0px;
+        }
+    }
+
+    &.button--icon{
+        .funcBoxShadow(0, 0, 1px, 0, darken(@baseBgColor, 10%));
+
+        [class^="dnxLiveIcon-"],
+        [class*=" dnxLiveIcon-"] {
+            font-size: 28px;
+            line-height: 30px;
+            width: 1em;
+            vertical-align: top;
+            .funcDisplayInlineBlock();
+        }
+
+        > .button__content{
+            float: left;
+            font-size: .9em;
+            font-weight: 400;
+            line-height: 1.9em;
+            font-family: @fontRoboto;
+            padding: 0 10px;
+        }
+    }
+
+    &.button--left-rounded{
+        .funcBorderRadius(5px 0 0 5px);
+    }
+
+    &.button--right-rounded{
+        .funcBorderRadius(0 5px 5px 0);
+    }
+
+    &.button--hipster {
+        height: 50px;
+        padding: 0 30px;
+        line-height: 44px; // Minus the border-width x2
+        color: @white;
+        border: 3px solid @white;
+        text-transform: uppercase;
+        .funcTransition(e('all .4s cubic-bezier(0.19, 1, 0.22, 1)'));
+
+        .button__content { line-height: 44px; }
+
+        &:hover {
+            background: @white;
+            color: @darkGrey;
+        }
+
+        &:active {
+            background: @grey;
+            color: @black;
+            border-color: @grey;
+        }
+
+        &.button--contrast {
+            color: @contrastColor;
+            border-color: @contrastColor;
+
+            &:hover {
+                background: @contrastColor;
+                color: @white;
+            }
+
+            &:active {
+                background: @lightContrastColor;
+                color: @white;
+                border-color: @lightContrastColor;
+            }
+        }
+    }
+
+    &.button--no-decoration{
+        border-color: transparent;
+
+        &:hover{ border-color: transparent; }
+    }
+
+    &.button--rounded{ border-radius: 15px; }
+
+    &.is-loading {
+        position: relative;
+
+        .button__content {
+            display: none;
+            width: 100%;
+        }
+
+        .spinner {
+            display: block;
+            margin-top: 1px;
+        }
+    }
+
+    .button__success {
+        display: block;
+        height: 0;
+        overflow: hidden;
+        padding: 0 5px;
+        line-height: 30px;
+        vertical-align: top;
+        visibility: hidden;
+        opacity: 0;
+        .funcTransition(e('opacity 300ms cubic-bezier(0.19, 1, 0.22, 1)'));
+    }
+
+    .button__error {
+        display: block;
+        height: 0;
+        overflow: hidden;
+        padding: 0 5px;
+        line-height: 30px;
+        vertical-align: top;
+        visibility: hidden;
+        opacity: 0;
+        .funcTransition(e('opacity 300ms cubic-bezier(0.19, 1, 0.22, 1)'));
+    }
+
+    &.is-sent {
+
+        .button__content {
+            display: none;
+        }
+
+        .button__success {
+            visibility: visible;
+            height: 100%;
+            opacity: 1;
+        }
+    }
+
+    &.is-not-sent {
+
+        .button__content {
+            display: none;
+        }
+
+        .button__error {
+            visibility: visible;
+            height: 100%;
+            opacity: 1;
+        }
+    }
+}

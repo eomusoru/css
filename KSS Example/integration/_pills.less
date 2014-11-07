@@ -1,0 +1,32 @@
+/**
+ * PILLS
+ */
+
+// Pills
+//
+// Default pills are grey with a 5px border-radius
+//
+// .pill--purple   - Purple pill
+//
+// Markup:
+// <span class="pill {$modifiers}">Step 1</span>
+//
+// Styleguide 11.0
+
+.pill {
+	position: relative;
+	top: -1px; /* Baseline alignment Illusion */
+	display: inline-block;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	background: #ccc;
+	border-radius: 5px;
+	font-size: .8em;
+	font-weight: 300;
+    white-space: nowrap;
+    
+    &.pill--purple {
+        background: #aa0092;
+        color: #fff;
+    }
+}
