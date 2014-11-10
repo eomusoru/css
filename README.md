@@ -1,11 +1,10 @@
 Modern CSS Architecture
 ===
 
-<p>Tips and tricks for a clean and modular CSS code? Here is a small resume for Presentation/modern_css_architecture.pdf</p><br />
-<hr /><br />
+<p>Tips and tricks for a clean and modular CSS code? Here is a small resume for Presentation/modern_css_architecture.pdf</p>
 <h1>PRESENTATION RESUME</h1>
 <br />
-<h2>I Modern CSS architecture</h2><br />
+<h2>I Modern CSS architecture</h2>
 <ul>
     <li>What is a good CSS Architecture</li>
     <li>Bad Practices</li>
@@ -13,10 +12,9 @@ Modern CSS Architecture
     <li>Solutions</li>
     <li>Best practices</li>
 </ul>
-<br /><br />
 
 <h2>II CSS Methodologies </h2>
-<p>Use methodologies and naming conventions to write a good CSS architecture.</p><br />
+<p>Use methodologies and naming conventions to write a good CSS architecture.</p>
 
 <ul>
 <li>OOCSS (Oriented Object CSS)</li>
@@ -34,7 +32,7 @@ Steps:
 <li>Run command</li>
 </ol><br />
 <code>kss-node integration/ output-name/ --template doc/template --less integration/common.less</code>
-<br />
+<br /><br />
 <strong>kss-node</strong> > Use kss tool <br />
 <strong>output-name/</strong> > Folder where the CSS Documentation will be generated<br />
 <strong>--template</strong> > Specify that we are going to use a template for our documentation<br />
